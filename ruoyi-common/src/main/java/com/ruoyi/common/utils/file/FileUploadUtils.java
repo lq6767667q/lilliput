@@ -2,6 +2,9 @@ package com.ruoyi.common.utils.file;
 
 import java.io.File;
 import java.io.IOException;
+import java.util.Properties;
+
+import com.ruoyi.common.utils.ServletUtils;
 import org.apache.commons.io.FilenameUtils;
 import org.springframework.web.multipart.MultipartFile;
 import com.ruoyi.common.config.Global;
@@ -32,7 +35,16 @@ public class FileUploadUtils
     /**
      * 默认上传的地址
      */
-    private static String defaultBaseDir = Global.getProfile();
+    private static String defaultBaseDir ;
+
+    {
+        if(ServletUtils.isOSLinux()){
+            defaultBaseDir = Global.getLinuxProfile();
+        }
+        else{
+            defaultBaseDir = Global.getProfile();
+        }
+    }
 
     private static int counter = 0;
 

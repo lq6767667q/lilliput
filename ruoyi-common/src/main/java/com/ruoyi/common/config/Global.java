@@ -107,6 +107,10 @@ public class Global
     {
         return getConfig("ruoyi.profile");
     }
+    public static String getLinuxProfile()
+    {
+        return getConfig("ruoyi.linuxprofile");
+    }
 
     /**
      * 获取头像上传路径

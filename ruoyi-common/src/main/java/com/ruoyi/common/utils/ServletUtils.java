@@ -1,6 +1,7 @@
 package com.ruoyi.common.utils;
 
 import java.io.IOException;
+import java.util.Properties;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
@@ -131,5 +132,15 @@ public class ServletUtils
             return true;
         }
         return false;
+    }
+
+    public static boolean isOSLinux() {
+        Properties prop = System.getProperties();
+        String os = prop.getProperty("os.name");
+        if (os != null && os.toLowerCase().indexOf("linux") > -1) {
+            return true;
+        } else {
+            return false;
+        }
     }
 }

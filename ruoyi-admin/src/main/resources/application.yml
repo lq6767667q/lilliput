@@ -8,6 +8,7 @@ ruoyi:
   copyrightYear: 2019
   # 文件路径
   profile: D:/profile/
+  linuxprofile: /home/xiaorenguo/profile/
   # 获取ip地址开关
   addressEnabled: true
 
