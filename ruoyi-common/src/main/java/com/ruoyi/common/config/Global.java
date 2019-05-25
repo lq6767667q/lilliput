@@ -3,6 +3,8 @@ package com.ruoyi.common.config;
 import java.io.FileNotFoundException;
 import java.util.HashMap;
 import java.util.Map;
+
+import com.ruoyi.common.utils.ServletUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import com.ruoyi.common.utils.StringUtils;
@@ -105,11 +107,25 @@ public class Global
      */
     public static String getProfile()
     {
-        return getConfig("ruoyi.profile");
+        StringBuilder path = new StringBuilder();
+        if(ServletUtils.isOSLinux()){
+            path = new StringBuilder(getConfig("ruoyi.linuxprofile"));
+        }
+        else{
+            path = new StringBuilder(getConfig("ruoyi.profile"));
+        }
+        return path.toString();
     }
     public static String getLinuxProfile()
     {
-        return getConfig("ruoyi.linuxprofile");
+        StringBuilder path = new StringBuilder();
+        if(ServletUtils.isOSLinux()){
+            path = new StringBuilder(getConfig("ruoyi.linuxprofile"));
+        }
+        else{
+            path = new StringBuilder(getConfig("ruoyi.profile"));
+        }
+        return path.toString();
     }
 
     /**
@@ -117,7 +133,14 @@ public class Global
      */
     public static String getAvatarPath()
     {
-        return getConfig("ruoyi.profile") + "avatar/";
+        StringBuilder path = new StringBuilder();
+        if(ServletUtils.isOSLinux()){
+            path = new StringBuilder(getConfig("ruoyi.linuxprofile"));
+        }
+        else{
+            path = new StringBuilder(getConfig("ruoyi.profile"));
+        }
+        return path.toString() + "avatar/";
     }
 
     /**
@@ -125,7 +148,14 @@ public class Global
      */
     public static String getDownloadPath()
     {
-        return getConfig("ruoyi.profile") + "download/";
+        StringBuilder path = new StringBuilder();
+        if(ServletUtils.isOSLinux()){
+            path = new StringBuilder(getConfig("ruoyi.linuxprofile"));
+        }
+        else{
+            path = new StringBuilder(getConfig("ruoyi.profile"));
+        }
+        return path.toString() + "download/";
     }
 
     /**
@@ -133,6 +163,13 @@ public class Global
      */
     public static String getUploadPath()
     {
-        return getConfig("ruoyi.profile") + "upload/";
+        StringBuilder path = new StringBuilder();
+        if(ServletUtils.isOSLinux()){
+            path = new StringBuilder(getConfig("ruoyi.linuxprofile"));
+        }
+        else{
+            path = new StringBuilder(getConfig("ruoyi.profile"));
+        }
+        return path.toString() + "upload/";
     }
 }
