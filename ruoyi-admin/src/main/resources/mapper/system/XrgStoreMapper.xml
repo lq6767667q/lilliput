@@ -1,0 +1,108 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.ruoyi.system.mapper.XrgStoreMapper">
+    
+    <resultMap type="XrgStore" id="XrgStoreResult">
+        <result property="id"    column="id"    />
+        <result property="addtime"    column="addtime"    />
+        <result property="supplier"    column="supplier"    />
+        <result property="supplierAddress"    column="supplier_address"    />
+        <result property="itemNumber"    column="item_number"    />
+        <result property="storeNumber"    column="store_number"    />
+        <result property="size"    column="size"    />
+        <result property="purchaseCount"    column="purchase_count"    />
+        <result property="sellCount"    column="sell_count"    />
+        <result property="count"    column="count"    />
+        <result property="purchasePrice"    column="purchase_price"    />
+        <result property="setPrice"    column="set_price"    />
+    </resultMap>
+	
+	<sql id="selectXrgStoreVo">
+        select id, addtime, supplier, supplier_address, item_number,store_number, size, purchase_count, sell_count, count, purchase_price, set_price from xrg_store
+    </sql>
+	
+    <select id="selectXrgStoreList" parameterType="XrgStore" resultMap="XrgStoreResult">
+        <include refid="selectXrgStoreVo"/>
+        <where>  
+            <if test="id != null  and id != '' "> and id = #{id}</if>
+             <if test="addtime != null "> and addtime = #{addtime}</if>
+             <if test="supplier != null  and supplier != '' "> and supplier like concat('%',#{supplier},'%')</if>
+             <if test="supplierAddress != null  and supplierAddress != '' "> and supplier_address like concat('%',#{supplierAddress},'%')</if>
+             <if test="itemNumber != null  and itemNumber != '' "> and item_number like concat('%',#{itemNumber},'%')</if>
+             <if test="storeNumber != null  and storeNumber != '' "> and store_number = #{storeNumber}</if>
+             <if test="size != null  and size != '' "> and size = #{size}</if>
+             <if test="purchaseCount != null "> and purchase_count = #{purchaseCount}</if>
+             <if test="sellCount != null "> and sell_count = #{sellCount}</if>
+             <if test="count != null "> and count = #{count}</if>
+             <if test="purchasePrice != null  and purchasePrice != '' "> and purchase_price = #{purchasePrice}</if>
+             <if test="setPrice != null  and setPrice != '' "> and set_price = #{setPrice}</if>
+         </where>
+        order by addtime desc, supplier
+    </select>
+    
+    <select id="selectXrgStoreById" parameterType="String" resultMap="XrgStoreResult">
+        <include refid="selectXrgStoreVo"/>
+        where id = #{id}
+    </select>
+        
+    <insert id="insertXrgStore" parameterType="XrgStore" useGeneratedKeys="true" keyProperty="id" keyColumn="id">
+        insert into xrg_store(
+			<if test="id != null  and id != ''  ">id,</if>
+			<if test="supplier != null  and supplier != ''  ">supplier,</if>
+			<if test="supplierAddress != null  and supplierAddress != ''  ">supplier_address,</if>
+			<if test="itemNumber != null  and itemNumber != ''  ">item_number,</if>
+			<if test="storeNumber != null  and storeNumber != ''  ">store_number,</if>
+			<if test="size != null  and size != ''  ">size,</if>
+			<if test="purchaseCount != null  ">purchase_count,</if>
+			<if test="sellCount != null  ">sell_count,</if>
+			<if test="count != null  ">count,</if>
+			<if test="purchasePrice != null  and purchasePrice != ''  ">purchase_price,</if>
+			<if test="setPrice != null  and setPrice != ''  ">set_price,</if>
+        addtime) values (
+			<if test="id != null  and id != ''  ">#{id},</if>
+			<if test="supplier != null  and supplier != ''  ">#{supplier},</if>
+			<if test="supplierAddress != null  and supplierAddress != ''  ">#{supplierAddress},</if>
+			<if test="itemNumber != null  and itemNumber != ''  ">#{itemNumber},</if>
+			<if test="storeNumber != null  and storeNumber != ''  ">#{storeNumber},</if>
+			<if test="size != null  and size != ''  ">#{size},</if>
+			<if test="purchaseCount != null  ">#{purchaseCount},</if>
+			<if test="sellCount != null  ">#{sellCount},</if>
+			<if test="count != null  ">#{count},</if>
+			<if test="purchasePrice != null  and purchasePrice != ''  ">#{purchasePrice},</if>
+			<if test="setPrice != null  and setPrice != ''  ">#{setPrice},</if>
+            sysdate()
+         )
+    </insert>
+	 
+    <update id="updateXrgStore" parameterType="XrgStore">
+        update xrg_store
+        <trim prefix="SET" suffixOverrides=",">
+            <if test="addtime != null  ">addtime = #{addtime},</if>
+            <if test="supplier != null  and supplier != ''  ">supplier = #{supplier},</if>
+            <if test="supplierAddress != null  and supplierAddress != ''  ">supplier_address = #{supplierAddress},</if>
+            <if test="itemNumber != null  and itemNumber != ''  ">item_number = #{itemNumber},</if>
+            <if test="storeNumber != null  and storeNumber != ''  ">store_number = #{storeNumber},</if>
+            <if test="size != null  and size != ''  ">size = #{size},</if>
+            <if test="purchaseCount != null  ">purchase_count = #{purchaseCount},</if>
+            <if test="sellCount != null  ">sell_count = #{sellCount},</if>
+            <if test="count != null  ">count = #{count},</if>
+            <if test="purchasePrice != null  and purchasePrice != ''  ">purchase_price = #{purchasePrice},</if>
+            <if test="setPrice != null  and setPrice != ''  ">set_price = #{setPrice},</if>
+        </trim>
+        where id = #{id}
+    </update>
+
+	<delete id="deleteXrgStoreById" parameterType="String">
+        delete from xrg_store where id = #{id}
+    </delete>
+	
+    <delete id="deleteXrgStoreByIds" parameterType="String">
+        delete from xrg_store where id in 
+        <foreach item="id" collection="array" open="(" separator="," close=")">
+            #{id}
+        </foreach>
+    </delete>
+    
+</mapper>

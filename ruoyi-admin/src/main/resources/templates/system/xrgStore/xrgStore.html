@@ -1,0 +1,172 @@
+<!DOCTYPE html>
+<html lang="zh" xmlns:th="http://www.thymeleaf.org" xmlns:shiro="http://www.pollix.at/thymeleaf/shiro">
+<head>
+	<th:block th:include="include :: header('小人国库存列表')" />
+</head>
+<body class="gray-bg">
+     <div class="container-div">
+		<div class="row">
+			<div class="col-sm-12 search-collapse">
+				<form id="formId">
+					<div class="select-list">
+						<ul>
+							<li>
+								供应商：<input type="text" name="supplier"/>
+							</li>
+
+							<li>
+								供应商地址：<input type="text" name="supplierAddress"/>
+							</li>
+
+							<li>
+								货号：<input type="text" name="itemNumber"/>
+							</li>
+							<li>
+								货架号：<input type="text" name="storeNumber"/>
+							</li>
+
+							<li>
+								码数：<input type="text" name="size"/>
+							</li>
+
+							<li>
+								余量：<input type="text" name="count"/>
+							</li>
+
+							<li>
+								进价：<input type="text" name="purchasePrice"/>
+							</li>
+
+							<li>
+								定价：<input type="text" name="setPrice"/>
+							</li>
+
+							<li>
+								<a class="btn btn-primary btn-rounded btn-sm" onclick="$.table.search()"><i class="fa fa-search"></i>&nbsp;搜索</a>
+								<a class="btn btn-warning btn-rounded btn-sm" onclick="$.form.reset()"><i class="fa fa-refresh"></i>&nbsp;重置</a>
+							</li>
+						</ul>
+					</div>
+				</form>
+			</div>
+			
+	        <div class="btn-group-sm" id="toolbar" role="group">
+				<a class="btn btn-success" onclick="$.operate.add()" shiro:hasPermission="system:xrgStore:add">
+					<i class="fa fa-plus"></i> 入库
+				</a>
+				<a class="btn btn-primary btn-edit disabled" onclick="$.operate.edit()" shiro:hasPermission="system:xrgStore:edit">
+					<i class="fa fa-edit"></i> 批量修改
+				</a>
+				<a class="btn btn-danger btn-del btn-del disabled" onclick="$.operate.removeAll()" shiro:hasPermission="system:xrgStore:remove">
+					<i class="fa fa-remove"></i> 删除
+				</a>
+				<!--<a class="btn btn-warning" onclick="$.table.exportExcel()" shiro:hasPermission="system:xrgStore:export">-->
+						<!--<i class="fa fa-download"></i> 导出-->
+				 <!--</a>-->
+			</div>
+			<div class="col-sm-12 select-table table-striped">
+				<table id="bootstrap-table" data-mobile-responsive="true"></table>
+			</div>
+		</div>
+	</div>
+    <div th:include="include :: footer"></div>
+    <script th:inline="javascript">
+        var editFlag = [[${@permission.hasPermi('system:xrgStore:edit')}]];
+        var removeFlag = [[${@permission.hasPermi('system:xrgStore:remove')}]];
+        var sellFlag = [[${@permission.hasPermi('system:xrgStore:sell')}]];
+        var addinFlag = [[${@permission.hasPermi('system:xrgStore:addin')}]];
+        var prefix = ctx + "system/xrgStore";
+
+        $(function() {
+            var options = {
+                url: prefix + "/list",
+                createUrl: prefix + "/add",
+                updateUrl: prefix + "/edit/{id}",
+                removeUrl: prefix + "/remove",
+				exportUrl: prefix + "/export",
+				sellUrl: prefix + "/sell/{id}",
+				addinUrl: prefix + "/addin/{id}",
+                modalName: "小人国库存",
+		        showExport: true,
+                columns: [{
+		            checkbox: true
+		        },
+				{
+					field : 'id', 
+					title : '',
+					visible: false
+				},
+				{
+					field : 'addtime', 
+					title : '',
+					sortable: false,
+                    visible: false
+				},
+				{
+					field : 'supplier', 
+					title : '供应商',
+					sortable: true
+				},
+				{
+					field : 'supplierAddress', 
+					title : '供应商地址',
+					sortable: true
+				},
+				{
+					field : 'itemNumber', 
+					title : '货号',
+					sortable: true
+				},
+                {
+					field : 'storeNumber',
+					title : '货架号',
+					sortable: true
+				},
+				{
+					field : 'size', 
+					title : '码数',
+					sortable: true
+				},
+				{
+					field : 'purchaseCount', 
+					title : '总进货数',
+					sortable: true
+				},
+				{
+					field : 'sellCount', 
+					title : '总出货数',
+					sortable: true
+				},
+				{
+					field : 'count', 
+					title : '余量',
+					sortable: true
+				},
+				{
+					field : 'purchasePrice', 
+					title : '进价',
+					sortable: true
+				},
+				{
+					field : 'setPrice', 
+					title : '定价',
+					sortable: true
+				},
+		        {
+		            title: '操作',
+		            align: 'center',
+		            formatter: function(value, row, index) {
+		            	var actions = [];
+		            	actions.push('<a class="btn btn-primary btn-xs ' + editFlag + '" href="javascript:void(0)" onclick="$.operate.edit(\'' + row.id + '\')"><i class="fa fa-edit"></i>编辑</a> ');
+                        actions.push('<a class="btn btn-danger btn-xs ' + removeFlag + '" href="javascript:void(0)" onclick="$.operate.remove(\'' + row.id + '\')"><i class="fa fa-remove"></i>删除</a> ');
+                        actions.push('<a class="btn btn-success btn-xs ' + sellFlag + '" href="javascript:void(0)" onclick="$.operate.xrg_sell(\'' + row.id + '\',\'' + row.count + '\')"><i class="fa fa-sign-out"></i>出库</a> ');
+                        actions.push('<a class="btn btn-warning btn-xs ' + addinFlag + '" href="javascript:void(0)" onclick="$.operate.xrg_addin(\'' + row.id + '\')"><i class="fa fa-desktop"></i>补货</a> ');
+						return actions.join('');
+		            }
+		        }]
+            };
+            $.table.init(options);
+        });
+    </script>
+</body>
+</html>

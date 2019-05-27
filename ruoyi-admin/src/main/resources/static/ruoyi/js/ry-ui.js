@@ -972,6 +972,26 @@
                     $.modal.alertError(result.msg);
                 }
                 $.modal.closeLoading();
+            },
+
+            // 小人国
+            xrg_addinUrl: function(id) {
+                var url = $.common.isEmpty(id) ? $.table._option.addinUrl : $.table._option.addinUrl.replace("{id}", id);
+                return url;
+            },
+            xrg_addin: function(id) {
+                $.modal.open("补货", $.operate.xrg_addinUrl(id));
+            },
+			xrg_sellUrl: function(id) {
+                var url = $.common.isEmpty(id) ? $.table._option.sellUrl : $.table._option.sellUrl.replace("{id}", id);
+                return url;
+            },
+            xrg_sell: function(id, count) {
+        		if(count <=0 ){
+                    $.modal.alertWarning("库存为0，不能出库");
+                    return;
+				}
+                $.modal.open("出库", $.operate.xrg_sellUrl(id));
             }
         },
         // 校验封装处理

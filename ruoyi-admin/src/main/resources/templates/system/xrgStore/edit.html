@@ -1,0 +1,91 @@
+<!DOCTYPE html>
+<html lang="zh" xmlns:th="http://www.thymeleaf.org" >
+<head>
+	<th:block th:include="include :: header('修改小人国库存')" />
+</head>
+<body class="white-bg">
+    <div class="wrapper wrapper-content animated fadeInRight ibox-content">
+        <form class="form-horizontal m" id="form-xrgStore-edit" th:object="${xrgStore}">
+            <input id="id" name="id" th:field="*{id}"  type="hidden">
+			<div class="form-group">
+				<label class="col-sm-3 control-label">供应商：</label>
+				<div class="col-sm-8">
+					<input id="supplier" name="supplier" th:field="*{supplier}" class="form-control" type="text">
+				</div>
+			</div>
+			<div class="form-group">	
+				<label class="col-sm-3 control-label">供应商地址：</label>
+				<div class="col-sm-8">
+					<input id="supplierAddress" name="supplierAddress" th:field="*{supplierAddress}" class="form-control" type="text">
+				</div>
+			</div>
+			<div class="form-group">
+				<label class="col-sm-3 control-label">货号：</label>
+				<div class="col-sm-8">
+					<input id="itemNumber" name="itemNumber" th:field="*{itemNumber}" class="form-control" type="text">
+				</div>
+			</div>
+			<div class="form-group">
+				<label class="col-sm-3 control-label">货架号：</label>
+				<div class="col-sm-8">
+					<input id="storeNumber" name="storeNumber" th:field="*{storeNumber}" class="form-control" type="text">
+				</div>
+			</div>
+			<div class="form-group">	
+				<label class="col-sm-3 control-label">码数：</label>
+				<div class="col-sm-8">
+					<input id="size" name="size" th:field="*{size}" class="form-control" type="text">
+				</div>
+			</div>
+			<div class="form-group">	
+				<label class="col-sm-3 control-label">总进货数：</label>
+				<div class="col-sm-8">
+					<input id="purchaseCount" name="purchaseCount" th:field="*{purchaseCount}" class="form-control" type="text">
+				</div>
+			</div>
+			<div class="form-group">	
+				<label class="col-sm-3 control-label">总出货数：</label>
+				<div class="col-sm-8">
+					<input id="sellCount" name="sellCount" th:field="*{sellCount}" class="form-control" type="text">
+				</div>
+			</div>
+			<div class="form-group">	
+				<label class="col-sm-3 control-label">余量：</label>
+				<div class="col-sm-8">
+					<input id="count" name="count" th:field="*{count}" class="form-control" type="text">
+				</div>
+			</div>
+			<div class="form-group">	
+				<label class="col-sm-3 control-label">进价：</label>
+				<div class="col-sm-8">
+					<input id="purchasePrice" name="purchasePrice" th:field="*{purchasePrice}" class="form-control" type="text">
+				</div>
+			</div>
+			<div class="form-group">	
+				<label class="col-sm-3 control-label">定价：</label>
+				<div class="col-sm-8">
+					<input id="setPrice" name="setPrice" th:field="*{setPrice}" class="form-control" type="text">
+				</div>
+			</div>
+		</form>
+    </div>
+    <div th:include="include::footer"></div>
+    <script type="text/javascript">
+		var prefix = ctx + "system/xrgStore";
+		$("#form-xrgStore-edit").validate({
+			rules:{
+				xxxx:{
+					required:true,
+				},
+			},
+			focusCleanup: true
+		});
+		
+		function submitHandler() {
+	        if ($.validate.form()) {
+	            $.operate.save(prefix + "/edit", $('#form-xrgStore-edit').serialize());
+	        }
+	    }
+	</script>
+</body>
+</html>
