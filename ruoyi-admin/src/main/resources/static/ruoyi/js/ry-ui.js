@@ -137,7 +137,7 @@
     			    var src = $(this).attr('src');
     			    var target = $(this).data('target');
     			    if($.common.equals("self", target)) {
-    			    	layer.open({
+    			    	var perContent = parent.layer.open({
         			        title: false,
         			        type: 1,
         			        closeBtn: true,
@@ -145,6 +145,9 @@
         			        area: ['auto', 'auto'],
         			        content: "<img src='" + src + "' />"
         			    });
+                        if (navigator.userAgent.match(/(iPhone|iPod|Android|ios)/i)) {
+                            parent.layer.full(perContent);
+                        }
     			    } else if ($.common.equals("blank", target)) {
     			        window.open(src);
     			    }
@@ -531,8 +534,8 @@
             },
             // 关闭窗体
             close: function () {
-            	var index = parent.layer.getFrameIndex(window.name);
-                parent.layer.close(index);
+            	var index = layer.getFrameIndex(window.name);
+                layer.close(index);
             },
             // 关闭全部窗体
             closeAll: function () {
@@ -574,7 +577,7 @@
                         iframeWin.contentWindow.submitHandler();
                     }
                 }
-            	layer.open({
+                var perContent = parent.layer.open({
             		type: 2,
             		area: [width + 'px', height + 'px'],
             		fix: false,
@@ -591,6 +594,9 @@
             	        return true;
             	    }
             	});
+                if (navigator.userAgent.match(/(iPhone|iPod|Android|ios)/i)) {
+                	parent.layer.full(perContent);
+                }
             },
             // 弹出层指定参数选项
             openOptions: function (options) {
@@ -599,7 +605,7 @@
                 var _width = $.common.isEmpty(options.width) ? "800" : options.width; 
                 var _height = $.common.isEmpty(options.height) ? ($(window).height() - 50) : options.height;
                 var _btn = ['<i class="fa fa-check"></i> 确认', '<i class="fa fa-close"></i> 关闭'];
-                layer.open({
+                var perContent = parent.layer.open({
                     type: 2,
             		maxmin: true,
                     shade: 0.3,
@@ -615,6 +621,9 @@
                         return true;
                     }
                 });
+                if (navigator.userAgent.match(/(iPhone|iPod|Android|ios)/i)) {
+                    parent.layer.full(perContent);
+                }
             },
             // 弹出层全屏
             openFull: function (title, url, width, height) {
@@ -635,7 +644,7 @@
                 if ($.common.isEmpty(height)) {
                 	height = ($(window).height() - 50);
                 };
-                var index = layer.open({
+                var index = parent.layer.open({
             		type: 2,
             		area: [width + 'px', height + 'px'],
             		fix: false,
@@ -655,7 +664,7 @@
             	        return true;
             	    }
             	});
-                layer.full(index);
+                parent.layer.full(index);
             },
             // 选卡页方式打开
             openTab: function (title, url) {
@@ -725,7 +734,7 @@
             	    _width = 'auto';
             	    _height = 'auto';
             	}
-            	layer.open({
+            	var perContent = parent.layer.open({
             		type: 2,
             		area: [_width + 'px', _height + 'px'],
             		fix: false,
@@ -741,6 +750,9 @@
             			return true;
          	        }
             	});
+                if (navigator.userAgent.match(/(iPhone|iPod|Android|ios)/i)) {
+                    parent.layer.full(perContent);
+                }
             },
             // 删除信息
             remove: function(id) {
@@ -931,7 +943,13 @@
             // 成功回调执行事件（父窗体静默更新）
             successCallback: function(result) {
                 if (result.code == web_status.SUCCESS) {
-                	var parent = window.parent;
+                	var parent;
+                    if (navigator.userAgent.match(/(iPhone|iPod|Android|ios)/i)) {
+                        parent = window;
+                    }
+                    else{
+                        parent = window.parent;
+					}
                     if (parent.$.table._option.type == table_type.bootstrapTable) {
                         $.modal.close();
                         parent.$.modal.msgSuccess(result.msg);
