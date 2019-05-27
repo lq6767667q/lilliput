@@ -17,6 +17,8 @@
     </div>
     <div th:include="include::footer"></div>
     <script type="text/javascript">
+		//用来标志是哪个iframe产生的modal
+		var urltext = "小人国库存";
 		var prefix = ctx + "system/xrgStore";
 		$("#form-xrgStore-edit").validate({
 			rules:{

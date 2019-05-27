@@ -198,9 +198,10 @@ $(function() {
     function menuItem() {
         // 获取标识数据
         var dataUrl = $(this).attr('href'),
-        dataIndex = $(this).data('index'),
-        menuName = $.trim($(this).text()),
-        flag = true;
+            dataIndex = $(this).data('index'),
+            urltext = $(this).text(),
+            menuName = $.trim($(this).text()),
+            flag = true;
         if (dataUrl == undefined || $.trim(dataUrl).length == 0) return false;
 
         // 选项卡菜单已存在
@@ -227,7 +228,7 @@ $(function() {
             $('.menuTab').removeClass('active');
 
             // 添加选项卡对应的iframe
-            var str1 = '<iframe class="RuoYi_iframe" name="iframe' + dataIndex + '" width="100%" height="100%" src="' + dataUrl + '" frameborder="0" data-id="' + dataUrl + '" seamless></iframe>';
+            var str1 = '<iframe class="RuoYi_iframe"id="iframe' + urltext + '" name="iframe' + urltext + '" width="100%" height="100%" src="' + dataUrl + '" frameborder="0" data-id="' + dataUrl + '" seamless></iframe>';
             $('.mainContent').find('iframe.RuoYi_iframe').hide().parents('.mainContent').append(str1);
             
             $.modal.loading("数据加载中，请稍后...");

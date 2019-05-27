@@ -4,6 +4,7 @@
  */
 (function ($) {
     $.extend({
+    	_ismobile: navigator.userAgent.match(/(iPhone|iPod|Android|ios)/i),
     	_treeTable: {},
     	_tree: {},
     	// 表格封装处理
@@ -137,7 +138,7 @@
     			    var src = $(this).attr('src');
     			    var target = $(this).data('target');
     			    if($.common.equals("self", target)) {
-    			    	var perContent = parent.layer.open({
+    			    	var perContent = layer.open({
         			        title: false,
         			        type: 1,
         			        closeBtn: true,
@@ -145,8 +146,8 @@
         			        area: ['auto', 'auto'],
         			        content: "<img src='" + src + "' />"
         			    });
-                        if (navigator.userAgent.match(/(iPhone|iPod|Android|ios)/i)) {
-                            parent.layer.full(perContent);
+                        if ($._ismobile) {
+                            layer.full(perContent);
                         }
     			    } else if ($.common.equals("blank", target)) {
     			        window.open(src);
@@ -577,7 +578,7 @@
                         iframeWin.contentWindow.submitHandler();
                     }
                 }
-                var perContent = parent.layer.open({
+                var perContent = layer.open({
             		type: 2,
             		area: [width + 'px', height + 'px'],
             		fix: false,
@@ -594,8 +595,8 @@
             	        return true;
             	    }
             	});
-                if (navigator.userAgent.match(/(iPhone|iPod|Android|ios)/i)) {
-                	parent.layer.full(perContent);
+                if ($._ismobile) {
+                	layer.full(perContent);
                 }
             },
             // 弹出层指定参数选项
@@ -605,7 +606,7 @@
                 var _width = $.common.isEmpty(options.width) ? "800" : options.width; 
                 var _height = $.common.isEmpty(options.height) ? ($(window).height() - 50) : options.height;
                 var _btn = ['<i class="fa fa-check"></i> 确认', '<i class="fa fa-close"></i> 关闭'];
-                var perContent = parent.layer.open({
+                var perContent = layer.open({
                     type: 2,
             		maxmin: true,
                     shade: 0.3,
@@ -621,8 +622,8 @@
                         return true;
                     }
                 });
-                if (navigator.userAgent.match(/(iPhone|iPod|Android|ios)/i)) {
-                    parent.layer.full(perContent);
+                if ($._ismobile) {
+                    layer.full(perContent);
                 }
             },
             // 弹出层全屏
@@ -644,7 +645,7 @@
                 if ($.common.isEmpty(height)) {
                 	height = ($(window).height() - 50);
                 };
-                var index = parent.layer.open({
+                var index = layer.open({
             		type: 2,
             		area: [width + 'px', height + 'px'],
             		fix: false,
@@ -664,7 +665,7 @@
             	        return true;
             	    }
             	});
-                parent.layer.full(index);
+                layer.full(index);
             },
             // 选卡页方式打开
             openTab: function (title, url) {
@@ -734,7 +735,7 @@
             	    _width = 'auto';
             	    _height = 'auto';
             	}
-            	var perContent = parent.layer.open({
+            	var perContent = layer.open({
             		type: 2,
             		area: [_width + 'px', _height + 'px'],
             		fix: false,
@@ -750,8 +751,8 @@
             			return true;
          	        }
             	});
-                if (navigator.userAgent.match(/(iPhone|iPod|Android|ios)/i)) {
-                    parent.layer.full(perContent);
+                if ($._ismobile) {
+                    layer.full(perContent);
                 }
             },
             // 删除信息
@@ -943,23 +944,28 @@
             // 成功回调执行事件（父窗体静默更新）
             successCallback: function(result) {
                 if (result.code == web_status.SUCCESS) {
-                	var parent;
-                    if (navigator.userAgent.match(/(iPhone|iPod|Android|ios)/i)) {
-                        parent = window;
-                    }
-                    else{
-                        parent = window.parent;
+                    var parent;
+                    try{
+                    	if($._ismobile){
+                    	    parent = $(window.parent.window.document).find("#iframe"+urltext)[0].contentWindow;
+                    	}
+                    	else{
+                    	    parent = window.parent;
+                    	}
+                        if (parent.$.table._option.type == table_type.bootstrapTable) {
+                            $.modal.close();
+                            parent.$.modal.msgSuccess(result.msg);
+                            parent.$.table.refresh();
+                        } else if (parent.$.table._option.type == table_type.bootstrapTreeTable) {
+                            $.modal.close();
+                            parent.$.modal.msgSuccess(result.msg);
+                            parent.$.treeTable.refresh();
+                        } else {
+                            $.modal.msgReload("保存成功,正在刷新数据请稍后……", modal_status.SUCCESS);
+                        }
 					}
-                    if (parent.$.table._option.type == table_type.bootstrapTable) {
-                        $.modal.close();
-                        parent.$.modal.msgSuccess(result.msg);
-                        parent.$.table.refresh();
-                    } else if (parent.$.table._option.type == table_type.bootstrapTreeTable) {
-                        $.modal.close();
-                        parent.$.modal.msgSuccess(result.msg);
-                        parent.$.treeTable.refresh();
-                    } else {
-                        $.modal.msgReload("保存成功,正在刷新数据请稍后……", modal_status.SUCCESS);
+					catch (e) {
+						alert(e.toString())
                     }
                 } else if (result.code == web_status.WARNING) {
                     $.modal.alertWarning(result.msg)
@@ -1321,3 +1327,7 @@ modal_status = {
     FAIL: "error",
     WARNING: "warning"
 };
+
+if (navigator.userAgent.match(/(iPhone|iPod|Android|ios)/i)) {
+    layer = top.layer;
+}
