@@ -132,8 +132,8 @@
 					field : 'sellPrice',
 					title : '出库价',
 					sortable: true
-				},
-		        {
+				}/* ,
+		       {
 		            title: '操作',
 		            align: 'center',
 		            formatter: function(value, row, index) {
@@ -142,7 +142,7 @@
                         actions.push('<a class="btn btn-danger btn-xs ' + removeFlag + '" href="javascript:void(0)" onclick="$.operate.remove(\'' + row.id + '\')"><i class="fa fa-remove"></i>删除</a>');
 						return actions.join('');
 		            }
-		        }]
+		        }*/]
             };
             $.table.init(options);
         });
