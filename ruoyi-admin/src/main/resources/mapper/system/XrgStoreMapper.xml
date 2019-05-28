@@ -32,7 +32,7 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
              <if test="supplierAddress != null  and supplierAddress != '' "> and supplier_address like concat('%',#{supplierAddress},'%')</if>
              <if test="itemNumber != null  and itemNumber != '' "> and item_number like concat('%',#{itemNumber},'%')</if>
              <if test="storeNumber != null  and storeNumber != '' "> and store_number = #{storeNumber}</if>
-             <if test="size != null  and size != '' "> and size = #{size}</if>
+             <if test="size != null  and size != '' "> and size like concat('%',#{size},'%')</if>
              <if test="purchaseCount != null "> and purchase_count = #{purchaseCount}</if>
              <if test="sellCount != null "> and sell_count = #{sellCount}</if>
              <if test="count != null "> and count = #{count}</if>

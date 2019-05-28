@@ -129,18 +129,25 @@
 				},
 				{
 					field : 'purchaseCount', 
-					title : '总进货数',
+					title : '总进货',
 					sortable: true
 				},
 				{
 					field : 'sellCount', 
-					title : '总出货数',
+					title : '总出货',
 					sortable: true
 				},
 				{
 					field : 'count', 
 					title : '余量',
-					sortable: true
+					sortable: true,
+                    formatter: function(value, row, index) {
+					    if(Number(value)<=0){
+					        return "<span style='color: red'>"+value+"</span>";
+                        }else{
+					        return "<span style='color: green'>"+value+"</span>";
+                        }
+                    }
 				},
 				{
 					field : 'purchasePrice', 
