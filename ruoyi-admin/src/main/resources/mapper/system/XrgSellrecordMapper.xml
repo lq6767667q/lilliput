@@ -14,10 +14,11 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
         <result property="size"    column="size"    />
         <result property="sellCount"    column="sell_count"    />
         <result property="sellPrice"    column="sell_price"    />
+        <result property="setPrice"    column="set_price"    />
     </resultMap>
 	
 	<sql id="selectXrgSellrecordVo">
-        select id, selltime, supplier, supplier_address, item_number, store_number, size, sell_count, sell_price from xrg_sellrecord
+        select id, selltime, supplier, supplier_address, item_number, store_number, size, sell_count, sell_price , set_price from xrg_sellrecord
     </sql>
 	
     <select id="selectXrgSellrecordList" parameterType="XrgSellrecord" resultMap="XrgSellrecordResult">
@@ -32,6 +33,7 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
              <if test="size != null  and size != '' "> and size = #{size}</if>
              <if test="sellCount != null "> and sell_count = #{sellCount}</if>
              <if test="sellPrice != null and sellPrice != '' "> and sell_price = #{sellPrice}</if>
+             <if test="setPrice != null and setPrice != '' "> and set_price = #{setPrice}</if>
          </where>
         order by selltime desc
     </select>
@@ -52,6 +54,7 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 			<if test="size != null  and size != ''  ">size,</if>
 			<if test="sellCount != null  ">sell_count,</if>
 			<if test="sellPrice != null  ">sell_price,</if>
+			<if test="setPrice != null  ">set_price,</if>
          </trim>
         <trim prefix="values (" suffix=")" suffixOverrides=",">
 			<if test="selltime != null  ">#{selltime},</if>
@@ -62,6 +65,7 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 			<if test="size != null  and size != ''  ">#{size},</if>
 			<if test="sellCount != null  ">#{sellCount},</if>
 			<if test="sellPrice != null  ">#{sellPrice},</if>
+			<if test="setPrice != null  ">#{setPrice},</if>
          </trim>
     </insert>
 	 
@@ -76,6 +80,7 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
             <if test="size != null  and size != ''  ">size = #{size},</if>
             <if test="sellCount != null  ">sell_count = #{sellCount},</if>
             <if test="sellPrice != null  ">sell_price = #{sellPrice},</if>
+            <if test="setPrice != null  ">set_price = #{setPrice},</if>
         </trim>
         where id = #{id}
     </update>

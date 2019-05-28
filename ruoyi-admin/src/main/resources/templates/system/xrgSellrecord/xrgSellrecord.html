@@ -39,7 +39,11 @@
 							</li>
 
 							<li>
-								出库数：<input type="text" name="sellPrice"/>
+								出库价：<input type="text" name="sellPrice"/>
+							</li>
+
+							<li>
+								定价：<input type="text" name="setPrice"/>
 							</li>
 
 							<li>
@@ -131,6 +135,11 @@
 				{
 					field : 'sellPrice',
 					title : '出库价',
+					sortable: true
+				},
+				{
+					field : 'setPrice',
+					title : '定价',
 					sortable: true
 				}/* ,
 		       {

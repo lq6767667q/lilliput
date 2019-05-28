@@ -33,6 +33,8 @@ public class XrgSellrecord extends BaseEntity
 	private Integer sellCount;
 	/** 出库价 */
 	private String sellPrice;
+	/** 定价 */
+	private String setPrice;
 
 	public void setId(Integer id) 
 	{
@@ -115,7 +117,15 @@ public class XrgSellrecord extends BaseEntity
 		this.sellPrice = sellPrice;
 	}
 
-	public String toString() {
+    public String getSetPrice() {
+        return setPrice;
+    }
+
+    public void setSetPrice(String setPrice) {
+        this.setPrice = setPrice;
+    }
+
+    public String toString() {
         return new ToStringBuilder(this,ToStringStyle.MULTI_LINE_STYLE)
             .append("id", getId())
             .append("selltime", getSelltime())
