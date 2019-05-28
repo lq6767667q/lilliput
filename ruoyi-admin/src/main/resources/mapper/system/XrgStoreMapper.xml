@@ -79,7 +79,6 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
     <update id="updateXrgStore" parameterType="XrgStore">
         update xrg_store
         <trim prefix="SET" suffixOverrides=",">
-            <if test="addtime != null  ">addtime = #{addtime},</if>
             <if test="supplier != null  and supplier != ''  ">supplier = #{supplier},</if>
             <if test="supplierAddress != null  and supplierAddress != ''  ">supplier_address = #{supplierAddress},</if>
             <if test="itemNumber != null  and itemNumber != ''  ">item_number = #{itemNumber},</if>
