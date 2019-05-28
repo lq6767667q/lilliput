@@ -55,5 +55,5 @@ public interface IXrgStoreService
     /**
      * 出库
      */
-	public int sell(XrgStore xrgStore, String sellnum);
+	public int sell(XrgStore xrgStore, int sellnumInt, String sellprice);
 }

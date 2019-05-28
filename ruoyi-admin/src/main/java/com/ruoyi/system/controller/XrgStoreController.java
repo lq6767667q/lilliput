@@ -151,7 +151,7 @@ public class XrgStoreController extends BaseController
     @Log(title = "小人国库存出库", businessType = BusinessType.UPDATE)
     @PostMapping("/sell")
     @ResponseBody
-    public AjaxResult sell(XrgStore xrgStore, @RequestParam("sellnum") String sellnum)
+    public AjaxResult sell(XrgStore xrgStore, @RequestParam("sellnum") String sellnum, @RequestParam("sellprice") String sellprice)
     {
         int sellnumInt = Integer.parseInt(sellnum);
         xrgStore = xrgStoreService.selectXrgStoreById(xrgStore.getId()+"");
@@ -162,7 +162,7 @@ public class XrgStoreController extends BaseController
             }
             xrgStore.setSellCount(xrgStore.getSellCount()+sellnumInt);
             xrgStore.setCount(remainCount);
-            xrgStoreService.updateXrgStore(xrgStore);
+            xrgStoreService.sell(xrgStore, sellnumInt, sellprice);
         }
         else{
             return AjaxResult.error("未找到id对应的数据");

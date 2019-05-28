@@ -1,12 +1,17 @@
 package com.ruoyi.system.service.impl;
 
+import java.util.Date;
 import java.util.List;
+
+import com.ruoyi.system.domain.XrgSellrecord;
+import com.ruoyi.system.service.IXrgSellrecordService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import com.ruoyi.system.mapper.XrgStoreMapper;
 import com.ruoyi.system.domain.XrgStore;
 import com.ruoyi.system.service.IXrgStoreService;
 import com.ruoyi.common.core.text.Convert;
+import org.springframework.transaction.annotation.Transactional;
 
 /**
  * 小人国库存 服务层实现
@@ -19,6 +24,9 @@ public class XrgStoreServiceImpl implements IXrgStoreService
 {
 	@Autowired
 	private XrgStoreMapper xrgStoreMapper;
+
+	@Autowired
+	private IXrgSellrecordService xrgSellrecordService;
 
 	/**
      * 查询小人国库存信息
@@ -83,16 +91,21 @@ public class XrgStoreServiceImpl implements IXrgStoreService
 	}
 
     @Override
-    public int sell(XrgStore xrgStore, String sellnum) {
-	    int sellnumInt = Integer.getInteger(sellnum);
-	    xrgStore = selectXrgStoreById(xrgStore.getId()+"");
-	    if(xrgStore!=null){
-	        xrgStore.setSellCount(xrgStore.getSellCount()+sellnumInt);
-	        xrgStore.setCount(xrgStore.getCount()-sellnumInt);
-        }
-        else{
-            return -1;
-        }
-        return 0;
+	@Transactional
+    public int sell(XrgStore xrgStore, int sellnumInt, String sellprice) {
+		int updateFlag = xrgStoreMapper.updateXrgStore(xrgStore);
+		if(updateFlag>=0){
+			XrgSellrecord xrgSellrecord = new XrgSellrecord();
+			xrgSellrecord.setItemNumber(xrgStore.getItemNumber());
+			xrgSellrecord.setSupplier(xrgStore.getSupplier());
+			xrgSellrecord.setSupplierAddress(xrgStore.getSupplierAddress());
+			xrgSellrecord.setSize(xrgStore.getSize());
+			xrgSellrecord.setStoreNumber(xrgStore.getStoreNumber());
+			xrgSellrecord.setSellCount(sellnumInt);
+			xrgSellrecord.setSellPrice(sellprice);
+			xrgSellrecord.setSelltime(new Date());
+			return xrgSellrecordService.insertXrgSellrecord(xrgSellrecord);
+		}
+		return -1;
     }
 }

@@ -1,0 +1,94 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.ruoyi.system.mapper.XrgSellrecordMapper">
+    
+    <resultMap type="XrgSellrecord" id="XrgSellrecordResult">
+        <result property="id"    column="id"    />
+        <result property="selltime"    column="selltime"    />
+        <result property="supplier"    column="supplier"    />
+        <result property="supplierAddress"    column="supplier_address"    />
+        <result property="itemNumber"    column="item_number"    />
+        <result property="storeNumber"    column="store_number"    />
+        <result property="size"    column="size"    />
+        <result property="sellCount"    column="sell_count"    />
+        <result property="sellPrice"    column="sell_price"    />
+    </resultMap>
+	
+	<sql id="selectXrgSellrecordVo">
+        select id, selltime, supplier, supplier_address, item_number, store_number, size, sell_count, sell_price from xrg_sellrecord
+    </sql>
+	
+    <select id="selectXrgSellrecordList" parameterType="XrgSellrecord" resultMap="XrgSellrecordResult">
+        <include refid="selectXrgSellrecordVo"/>
+        <where>  
+            <if test="id != null "> and id = #{id}</if>
+             <if test="selltime != null "> and selltime = #{selltime}</if>
+             <if test="supplier != null  and supplier != '' "> and supplier = #{supplier}</if>
+             <if test="supplierAddress != null  and supplierAddress != '' "> and supplier_address = #{supplierAddress}</if>
+             <if test="itemNumber != null  and itemNumber != '' "> and item_number = #{itemNumber}</if>
+             <if test="storeNumber != null  and storeNumber != '' "> and store_number = #{storeNumber}</if>
+             <if test="size != null  and size != '' "> and size = #{size}</if>
+             <if test="sellCount != null "> and sell_count = #{sellCount}</if>
+             <if test="sellPrice != null and sellPrice != '' "> and sell_price = #{sellPrice}</if>
+         </where>
+        order by selltime desc
+    </select>
+    
+    <select id="selectXrgSellrecordById" parameterType="Integer" resultMap="XrgSellrecordResult">
+        <include refid="selectXrgSellrecordVo"/>
+        where id = #{id}
+    </select>
+        
+    <insert id="insertXrgSellrecord" parameterType="XrgSellrecord" useGeneratedKeys="true" keyProperty="id">
+        insert into xrg_sellrecord
+		<trim prefix="(" suffix=")" suffixOverrides=",">
+			<if test="selltime != null  ">selltime,</if>
+			<if test="supplier != null  and supplier != ''  ">supplier,</if>
+			<if test="supplierAddress != null  and supplierAddress != ''  ">supplier_address,</if>
+			<if test="itemNumber != null  and itemNumber != ''  ">item_number,</if>
+			<if test="storeNumber != null  and storeNumber != ''  ">store_number,</if>
+			<if test="size != null  and size != ''  ">size,</if>
+			<if test="sellCount != null  ">sell_count,</if>
+			<if test="sellPrice != null  ">sell_price,</if>
+         </trim>
+        <trim prefix="values (" suffix=")" suffixOverrides=",">
+			<if test="selltime != null  ">#{selltime},</if>
+			<if test="supplier != null  and supplier != ''  ">#{supplier},</if>
+			<if test="supplierAddress != null  and supplierAddress != ''  ">#{supplierAddress},</if>
+			<if test="itemNumber != null  and itemNumber != ''  ">#{itemNumber},</if>
+			<if test="storeNumber != null  and storeNumber != ''  ">#{storeNumber},</if>
+			<if test="size != null  and size != ''  ">#{size},</if>
+			<if test="sellCount != null  ">#{sellCount},</if>
+			<if test="sellPrice != null  ">#{sellPrice},</if>
+         </trim>
+    </insert>
+	 
+    <update id="updateXrgSellrecord" parameterType="XrgSellrecord">
+        update xrg_sellrecord
+        <trim prefix="SET" suffixOverrides=",">
+            <if test="selltime != null  ">selltime = #{selltime},</if>
+            <if test="supplier != null  and supplier != ''  ">supplier = #{supplier},</if>
+            <if test="supplierAddress != null  and supplierAddress != ''  ">supplier_address = #{supplierAddress},</if>
+            <if test="itemNumber != null  and itemNumber != ''  ">item_number = #{itemNumber},</if>
+            <if test="storeNumber != null  and storeNumber != ''  ">store_number = #{storeNumber},</if>
+            <if test="size != null  and size != ''  ">size = #{size},</if>
+            <if test="sellCount != null  ">sell_count = #{sellCount},</if>
+            <if test="sellPrice != null  ">sell_price = #{sellPrice},</if>
+        </trim>
+        where id = #{id}
+    </update>
+
+	<delete id="deleteXrgSellrecordById" parameterType="Integer">
+        delete from xrg_sellrecord where id = #{id}
+    </delete>
+	
+    <delete id="deleteXrgSellrecordByIds" parameterType="String">
+        delete from xrg_sellrecord where id in 
+        <foreach item="id" collection="array" open="(" separator="," close=")">
+            #{id}
+        </foreach>
+    </delete>
+    
+</mapper>
