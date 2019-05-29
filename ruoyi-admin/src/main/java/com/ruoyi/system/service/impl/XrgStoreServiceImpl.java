@@ -3,7 +3,9 @@ package com.ruoyi.system.service.impl;
 import java.util.Date;
 import java.util.List;
 
+import com.ruoyi.system.domain.XrgPurchaserecord;
 import com.ruoyi.system.domain.XrgSellrecord;
+import com.ruoyi.system.service.IXrgPurchaserecordService;
 import com.ruoyi.system.service.IXrgSellrecordService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -27,6 +29,9 @@ public class XrgStoreServiceImpl implements IXrgStoreService
 
 	@Autowired
 	private IXrgSellrecordService xrgSellrecordService;
+
+	@Autowired
+	private IXrgPurchaserecordService xrgPurchaserecordService;
 
 	/**
      * 查询小人国库存信息
@@ -59,11 +64,25 @@ public class XrgStoreServiceImpl implements IXrgStoreService
      * @return 结果
      */
 	@Override
+	@Transactional
 	public int insertXrgStore(XrgStore xrgStore)
 	{
         xrgStore.setSellCount(0);
         xrgStore.setCount(xrgStore.getPurchaseCount());
-	    return xrgStoreMapper.insertXrgStore(xrgStore);
+	    int insertFlag = xrgStoreMapper.insertXrgStore(xrgStore);
+		if(insertFlag>=0){
+			XrgPurchaserecord xrgPurchaserecord = new XrgPurchaserecord();
+			xrgPurchaserecord.setItemNumber(xrgStore.getItemNumber());
+			xrgPurchaserecord.setSupplier(xrgStore.getSupplier());
+			xrgPurchaserecord.setSupplierAddress(xrgStore.getSupplierAddress());
+			xrgPurchaserecord.setSize(xrgStore.getSize());
+			xrgPurchaserecord.setStoreNumber(xrgStore.getStoreNumber());
+			xrgPurchaserecord.setPurchasetime(new Date());
+			xrgPurchaserecord.setPurchasePrice(xrgStore.getPurchasePrice());
+			xrgPurchaserecord.setCount(xrgStore.getCount());
+			return xrgPurchaserecordService.insertXrgPurchaserecord(xrgPurchaserecord);
+		}
+		return -1;
 	}
 	
 	/**
@@ -109,4 +128,24 @@ public class XrgStoreServiceImpl implements IXrgStoreService
 		}
 		return -1;
     }
+
+
+	@Override
+	@Transactional
+	public int addin(XrgStore xrgStore, int addinnumInt) {
+		int updateFlag = xrgStoreMapper.updateXrgStore(xrgStore);
+		if(updateFlag>=0){
+			XrgPurchaserecord xrgPurchaserecord = new XrgPurchaserecord();
+			xrgPurchaserecord.setItemNumber(xrgStore.getItemNumber());
+			xrgPurchaserecord.setSupplier(xrgStore.getSupplier());
+			xrgPurchaserecord.setSupplierAddress(xrgStore.getSupplierAddress());
+			xrgPurchaserecord.setSize(xrgStore.getSize());
+			xrgPurchaserecord.setStoreNumber(xrgStore.getStoreNumber());
+			xrgPurchaserecord.setPurchasetime(new Date());
+			xrgPurchaserecord.setPurchasePrice(xrgStore.getPurchasePrice());
+			xrgPurchaserecord.setCount(addinnumInt);
+			return xrgPurchaserecordService.insertXrgPurchaserecord(xrgPurchaserecord);
+		}
+		return -1;
+	}
 }

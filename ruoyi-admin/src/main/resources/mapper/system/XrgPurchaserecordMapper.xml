@@ -2,95 +2,90 @@
 <!DOCTYPE mapper
 PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
-<mapper namespace="com.ruoyi.system.mapper.XrgSellrecordMapper">
+<mapper namespace="com.ruoyi.system.mapper.XrgPurchaserecordMapper">
     
-    <resultMap type="XrgSellrecord" id="XrgSellrecordResult">
+    <resultMap type="XrgPurchaserecord" id="XrgPurchaserecordResult">
         <result property="id"    column="id"    />
-        <result property="selltime"    column="selltime"    />
+        <result property="purchasetime"    column="purchasetime"    />
         <result property="supplier"    column="supplier"    />
         <result property="supplierAddress"    column="supplier_address"    />
         <result property="itemNumber"    column="item_number"    />
         <result property="storeNumber"    column="store_number"    />
         <result property="size"    column="size"    />
-        <result property="sellCount"    column="sell_count"    />
-        <result property="sellPrice"    column="sell_price"    />
-        <result property="setPrice"    column="set_price"    />
+        <result property="purchasePrice"    column="purchase_price"    />
+        <result property="count"    column="count"    />
     </resultMap>
 	
-	<sql id="selectXrgSellrecordVo">
-        select id, selltime, supplier, supplier_address, item_number, store_number, size, sell_count, sell_price , set_price from xrg_sellrecord
+	<sql id="selectXrgPurchaserecordVo">
+        select id, purchasetime, supplier, supplier_address, item_number, store_number, size, purchase_price, count from xrg_purchaserecord
     </sql>
 	
-    <select id="selectXrgSellrecordList" parameterType="XrgSellrecord" resultMap="XrgSellrecordResult">
-        <include refid="selectXrgSellrecordVo"/>
+    <select id="selectXrgPurchaserecordList" parameterType="XrgPurchaserecord" resultMap="XrgPurchaserecordResult">
+        <include refid="selectXrgPurchaserecordVo"/>
         <where>  
             <if test="id != null "> and id = #{id}</if>
-             <if test="selltime != null "> and selltime = #{selltime}</if>
+             <if test="purchasetime != null "> and purchasetime = #{purchasetime}</if>
              <if test="supplier != null  and supplier != '' "> and supplier like concat('%',#{supplier},'%')</if>
              <if test="supplierAddress != null  and supplierAddress != '' "> and supplier_address like concat('%',#{supplierAddress},'%')</if>
              <if test="itemNumber != null  and itemNumber != '' "> and item_number like concat('%',#{itemNumber},'%')</if>
              <if test="storeNumber != null  and storeNumber != '' "> and store_number = #{storeNumber}</if>
              <if test="size != null  and size != '' "> and size like concat('%',#{size},'%')</if>
-             <if test="sellCount != null "> and sell_count = #{sellCount}</if>
-             <if test="sellPrice != null and sellPrice != '' "> and sell_price = #{sellPrice}</if>
-             <if test="setPrice != null and setPrice != '' "> and set_price = #{setPrice}</if>
+             <if test="purchasePrice != null  and purchasePrice != '' "> and purchase_price = #{purchasePrice}</if>
+             <if test="count != null  and count != '' "> and count = #{count}</if>
          </where>
-        order by selltime desc
+        order by purchasetime desc
     </select>
     
-    <select id="selectXrgSellrecordById" parameterType="Integer" resultMap="XrgSellrecordResult">
-        <include refid="selectXrgSellrecordVo"/>
+    <select id="selectXrgPurchaserecordById" parameterType="Integer" resultMap="XrgPurchaserecordResult">
+        <include refid="selectXrgPurchaserecordVo"/>
         where id = #{id}
     </select>
         
-    <insert id="insertXrgSellrecord" parameterType="XrgSellrecord" useGeneratedKeys="true" keyProperty="id">
-        insert into xrg_sellrecord
+    <insert id="insertXrgPurchaserecord" parameterType="XrgPurchaserecord" useGeneratedKeys="true" keyProperty="id">
+        insert into xrg_purchaserecord
 		<trim prefix="(" suffix=")" suffixOverrides=",">
-			<if test="selltime != null  ">selltime,</if>
+			<if test="purchasetime != null  ">purchasetime,</if>
 			<if test="supplier != null  and supplier != ''  ">supplier,</if>
 			<if test="supplierAddress != null  and supplierAddress != ''  ">supplier_address,</if>
 			<if test="itemNumber != null  and itemNumber != ''  ">item_number,</if>
 			<if test="storeNumber != null  and storeNumber != ''  ">store_number,</if>
 			<if test="size != null  and size != ''  ">size,</if>
-			<if test="sellCount != null  ">sell_count,</if>
-			<if test="sellPrice != null  ">sell_price,</if>
-			<if test="setPrice != null  ">set_price,</if>
+			<if test="purchasePrice != null  and purchasePrice != ''  ">purchase_price,</if>
+			<if test="count != null  and count != ''  ">count,</if>
          </trim>
         <trim prefix="values (" suffix=")" suffixOverrides=",">
-			<if test="selltime != null  ">#{selltime},</if>
+			<if test="purchasetime != null  ">#{purchasetime},</if>
 			<if test="supplier != null  and supplier != ''  ">#{supplier},</if>
 			<if test="supplierAddress != null  and supplierAddress != ''  ">#{supplierAddress},</if>
 			<if test="itemNumber != null  and itemNumber != ''  ">#{itemNumber},</if>
 			<if test="storeNumber != null  and storeNumber != ''  ">#{storeNumber},</if>
 			<if test="size != null  and size != ''  ">#{size},</if>
-			<if test="sellCount != null  ">#{sellCount},</if>
-			<if test="sellPrice != null  ">#{sellPrice},</if>
-			<if test="setPrice != null  ">#{setPrice},</if>
+			<if test="purchasePrice != null  and purchasePrice != ''  ">#{purchasePrice},</if>
+			<if test="count != null  and count != ''  ">#{count},</if>
          </trim>
     </insert>
 	 
-    <update id="updateXrgSellrecord" parameterType="XrgSellrecord">
-        update xrg_sellrecord
+    <update id="updateXrgPurchaserecord" parameterType="XrgPurchaserecord">
+        update xrg_purchaserecord
         <trim prefix="SET" suffixOverrides=",">
-            <if test="selltime != null  ">selltime = #{selltime},</if>
+            <if test="purchasetime != null  ">purchasetime = #{purchasetime},</if>
             <if test="supplier != null  and supplier != ''  ">supplier = #{supplier},</if>
             <if test="supplierAddress != null  and supplierAddress != ''  ">supplier_address = #{supplierAddress},</if>
             <if test="itemNumber != null  and itemNumber != ''  ">item_number = #{itemNumber},</if>
             <if test="storeNumber != null  and storeNumber != ''  ">store_number = #{storeNumber},</if>
             <if test="size != null  and size != ''  ">size = #{size},</if>
-            <if test="sellCount != null  ">sell_count = #{sellCount},</if>
-            <if test="sellPrice != null  ">sell_price = #{sellPrice},</if>
-            <if test="setPrice != null  ">set_price = #{setPrice},</if>
+            <if test="purchasePrice != null  and purchasePrice != ''  ">purchase_price = #{purchasePrice},</if>
+            <if test="count != null  and count != ''  ">count = #{count},</if>
         </trim>
         where id = #{id}
     </update>
 
-	<delete id="deleteXrgSellrecordById" parameterType="Integer">
-        delete from xrg_sellrecord where id = #{id}
+	<delete id="deleteXrgPurchaserecordById" parameterType="Integer">
+        delete from xrg_purchaserecord where id = #{id}
     </delete>
 	
-    <delete id="deleteXrgSellrecordByIds" parameterType="String">
-        delete from xrg_sellrecord where id in 
+    <delete id="deleteXrgPurchaserecordByIds" parameterType="String">
+        delete from xrg_purchaserecord where id in 
         <foreach item="id" collection="array" open="(" separator="," close=")">
             #{id}
         </foreach>

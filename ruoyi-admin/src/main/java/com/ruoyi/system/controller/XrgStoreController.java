@@ -2,6 +2,8 @@ package com.ruoyi.system.controller;
 
 import java.util.Date;
 import java.util.List;
+
+import com.ruoyi.system.service.IXrgPurchaserecordService;
 import org.apache.shiro.authz.annotation.RequiresPermissions;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -30,6 +32,9 @@ public class XrgStoreController extends BaseController
 	
 	@Autowired
 	private IXrgStoreService xrgStoreService;
+
+	@Autowired
+	private IXrgPurchaserecordService xrgPurchaserecordService;
 	
 	@RequiresPermissions("system:xrgStore:view")
 	@GetMapping()
@@ -184,7 +189,7 @@ public class XrgStoreController extends BaseController
         if(xrgStore!=null){
             xrgStore.setPurchaseCount(xrgStore.getPurchaseCount()+addinnumInt);
             xrgStore.setCount(xrgStore.getCount()+addinnumInt);
-            xrgStoreService.updateXrgStore(xrgStore);
+            xrgStoreService.addin(xrgStore, addinnumInt);
         }
         else{
             return AjaxResult.error("未找到id对应的数据");
