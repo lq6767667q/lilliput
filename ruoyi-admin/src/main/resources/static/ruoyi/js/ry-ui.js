@@ -870,6 +870,26 @@
         	    };
         	    $.ajax(config)
             },
+			// 保存信息 不退出窗口
+            saveNoExit: function(url, data, callback) {
+            	var config = {
+        	        url: url,
+        	        type: "post",
+        	        dataType: "json",
+        	        data: data,
+        	        beforeSend: function () {
+        	        	$.modal.loading("正在处理中，请稍后...");
+        	        	$.modal.disable();
+        	        },
+        	        success: function(result) {
+        	        	if (typeof callback == "function") {
+        	        	    callback(result);
+        	        	}
+        	        	$.operate.successCallbackNoExit(result);
+        	        }
+        	    };
+        	    $.ajax(config)
+            },
             // 保存信息 弹出提示框
             saveModal: function(url, data, callback) {
             	var config = {
@@ -965,6 +985,47 @@
                             parent.$.table.refresh();
                         } else if (parent.$.table._option.type == table_type.bootstrapTreeTable) {
                             $.modal.close();
+                            parent.$.modal.msgSuccess(result.msg);
+                            parent.$.treeTable.refresh();
+                        } else {
+                            $.modal.msgReload("保存成功,正在刷新数据请稍后……", modal_status.SUCCESS);
+                        }
+					}
+					catch (e) {
+						alert(e.toString())
+                    }
+                } else if (result.code == web_status.WARNING) {
+                    $.modal.alertWarning(result.msg)
+                }  else {
+                    $.modal.alertError(result.msg);
+                }
+                $.modal.closeLoading();
+                $.modal.enable();
+            },
+            // 成功回调执行事件（不退出窗口）
+            successCallbackNoExit: function(result) {
+                if (result.code == web_status.SUCCESS) {
+                    var parent;
+                    try{
+                    	if($._ismobile){
+                    	    var parentlist = $(window.parent.window.document).find("#iframe"+urltext);
+                    	    if(parentlist.length >0){
+                    	    	parent = parentlist[0].contentWindow;
+							}
+							//如果没有 就是首页
+							else{
+                                parent = $(window.parent.window.document).find("#iframeindex")[0].contentWindow;
+							}
+                    	}
+                    	else{
+                    	    parent = window.parent;
+                    	}
+                        if (parent.$.table._option.type == table_type.bootstrapTable) {
+                            // $.modal.close();
+                            parent.$.modal.msgSuccess(result.msg);
+                            parent.$.table.refresh();
+                        } else if (parent.$.table._option.type == table_type.bootstrapTreeTable) {
+                            // $.modal.close();
                             parent.$.modal.msgSuccess(result.msg);
                             parent.$.treeTable.refresh();
                         } else {

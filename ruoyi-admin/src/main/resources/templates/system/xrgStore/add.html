@@ -72,7 +72,7 @@
 		
 		function submitHandler() {
 	        if ($.validate.form()) {
-	            $.operate.save(prefix + "/add", $('#form-xrgStore-add').serialize());
+	            $.operate.saveNoExit(prefix + "/add", $('#form-xrgStore-add').serialize());
 	        }
 	    }
 	</script>
