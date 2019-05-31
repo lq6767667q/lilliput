@@ -947,7 +947,14 @@
                     var parent;
                     try{
                     	if($._ismobile){
-                    	    parent = $(window.parent.window.document).find("#iframe"+urltext)[0].contentWindow;
+                    	    var parentlist = $(window.parent.window.document).find("#iframe"+urltext);
+                    	    if(parentlist.length >0){
+                    	    	parent = parentlist[0].contentWindow;
+							}
+							//如果没有 就是首页
+							else{
+                                parent = $(window.parent.window.document).find("#iframeindex")[0].contentWindow;
+							}
                     	}
                     	else{
                     	    parent = window.parent;
