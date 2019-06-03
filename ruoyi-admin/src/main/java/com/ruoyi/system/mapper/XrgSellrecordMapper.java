@@ -1,7 +1,12 @@
 package com.ruoyi.system.mapper;
 
+import com.alibaba.fastjson.JSONObject;
 import com.ruoyi.system.domain.XrgSellrecord;
-import java.util.List;	
+import com.ruoyi.system.domain.XrgStatisticsReq;
+import org.apache.ibatis.annotations.Param;
+
+import java.util.HashMap;
+import java.util.List;
 
 /**
  * 出库记录 数据层
@@ -58,5 +63,6 @@ public interface XrgSellrecordMapper
      * @return 结果
      */
 	public int deleteXrgSellrecordByIds(String[] ids);
-	
+
+	List<JSONObject> normalCount(XrgStatisticsReq xrgStatisticsReq);
 }

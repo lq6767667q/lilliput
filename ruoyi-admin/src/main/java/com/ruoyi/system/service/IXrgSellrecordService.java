@@ -1,6 +1,10 @@
 package com.ruoyi.system.service;
 
+import com.alibaba.fastjson.JSONObject;
 import com.ruoyi.system.domain.XrgSellrecord;
+import com.ruoyi.system.domain.XrgStatisticsReq;
+
+import java.util.HashMap;
 import java.util.List;
 
 /**
@@ -50,5 +54,7 @@ public interface IXrgSellrecordService
      * @return 结果
      */
 	public int deleteXrgSellrecordByIds(String ids);
+
+	List<JSONObject> normalCount(XrgStatisticsReq xrgStatisticsReq );
 	
 }

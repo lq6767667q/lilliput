@@ -1,6 +1,10 @@
 package com.ruoyi.system.service.impl;
 
+import java.util.HashMap;
 import java.util.List;
+
+import com.alibaba.fastjson.JSONObject;
+import com.ruoyi.system.domain.XrgStatisticsReq;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import com.ruoyi.system.mapper.XrgSellrecordMapper;
@@ -79,5 +83,10 @@ public class XrgSellrecordServiceImpl implements IXrgSellrecordService
 	{
 		return xrgSellrecordMapper.deleteXrgSellrecordByIds(Convert.toStrArray(ids));
 	}
-	
+
+
+	@Override
+	public List<JSONObject> normalCount(XrgStatisticsReq xrgStatisticsReq ) {
+		return xrgSellrecordMapper.normalCount(xrgStatisticsReq);
+	}
 }

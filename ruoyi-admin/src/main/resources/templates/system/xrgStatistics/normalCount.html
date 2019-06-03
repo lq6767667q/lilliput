@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html lang="zh" xmlns:th="http://www.thymeleaf.org" xmlns:shiro="http://www.pollix.at/thymeleaf/shiro">
+<head>
+    <title>小人国统计</title>
+    <link rel="stylesheet" href="/ajax/libs/layui/2.5.1/css/layui.css">
+    <link rel="stylesheet" href="/ajax/libs/layui/2.5.1/css/layui.mobile.css">
+    <script src="/js/jquery.min.js"></script>
+</head>
+<body>
+<div class="layui-form">
+    <div class="layui-form-item">
+        <div class="layui-inline">
+            <label class="layui-form-label">总收入</label>
+            <div class="layui-input-inline">
+                <input type="text" class="layui-input" id="allsum" >
+            </div>
+            <label class="layui-form-label" style="width: 10px">元</label>
+        </div>
+    </br>
+        <div class="layui-inline">
+            <label class="layui-form-label">年月查询</label>
+            <div class="layui-input-inline">
+                <input type="text" class="layui-input" id="ymsumselect" placeholder="请选择月份">
+            </div>
+        </div>
+        </br>
+        <div class="layui-inline">
+            <label class="layui-form-label"></label>
+            <div class="layui-input-inline">
+                <input type="text" class="layui-input" id="ymsum" >
+            </div>
+            <label class="layui-form-label" style="width: 10px">元</label>
+        </div>
+    </div>
+</div>
+
+<script src="/ajax/libs/layui/2.5.1/layui.js"></script>
+<script>
+    layui.use(['jquery', 'laydate', 'layer'], function(){
+        var $ = layui.jquery
+            ,laydate = layui.laydate
+            ,layer = layui.layer;
+
+        window.getNormalCount =  function(year, month){
+            $.ajax({
+                url:'/system/xrgStatistics/normalCount',
+                type: 'get',
+                dataType: 'json',
+                data:{
+                    year:year,
+                    month:month
+                },
+                success:function(result){
+                    if(result.code == '0'){
+                        if(year || month){
+                            $('#ymsum').val(result.msg);
+                        }
+                        else{
+                            $('#allsum').val(result.msg);
+                        }
+                    }
+                },
+                error: function() {
+                    layer.alert("查询连接异常！");
+                }
+            });
+        }
+
+        //年月选择器
+        laydate.render({
+            elem: '#ymsumselect'
+            ,type: 'month'
+            ,value: new Date()
+            ,done: function(value, date, endDate){
+                getNormalCount(date.year, date.month);
+            }
+        });
+
+        getNormalCount();
+        var date=new Date;
+        var year=date.getFullYear();
+        var month=date.getMonth()+1;
+        getNormalCount(year, month);
+    });
+</script>
+
+</body>
+</html>
