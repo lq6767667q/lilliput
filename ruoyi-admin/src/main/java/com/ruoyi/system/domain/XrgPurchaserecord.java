@@ -33,6 +33,8 @@ public class XrgPurchaserecord extends BaseEntity
 	private String purchasePrice;
 	/** 入库数量 */
 	private Integer count;
+	/** 类别 */
+	private String cat;
 
 
 	public void setId(Integer id) 
@@ -116,6 +118,14 @@ public class XrgPurchaserecord extends BaseEntity
 		this.count = count;
 	}
 
+	public String getCat() {
+		return cat;
+	}
+
+	public void setCat(String cat) {
+		this.cat = cat;
+	}
+
 	public String toString() {
         return new ToStringBuilder(this,ToStringStyle.MULTI_LINE_STYLE)
             .append("id", getId())
@@ -126,6 +136,7 @@ public class XrgPurchaserecord extends BaseEntity
             .append("storeNumber", getStoreNumber())
             .append("size", getSize())
             .append("purchasePrice", getPurchasePrice())
+            .append("cat", getCat())
             .toString();
     }
 }

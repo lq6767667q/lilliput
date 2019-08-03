@@ -39,6 +39,8 @@ public class XrgStore extends BaseEntity
 	private String purchasePrice;
 	/** 定价 */
 	private String setPrice;
+	/** 定价 */
+	private String cat;
 
 	public void setId(Integer id)
 	{
@@ -148,7 +150,15 @@ public class XrgStore extends BaseEntity
         this.storeNumber = storeNumber;
     }
 
-    public String toString() {
+	public String getCat() {
+		return cat;
+	}
+
+	public void setCat(String cat) {
+		this.cat = cat;
+	}
+
+	public String toString() {
         return new ToStringBuilder(this,ToStringStyle.MULTI_LINE_STYLE)
             .append("id", getId())
             .append("addtime", getAddtime())
@@ -161,6 +171,7 @@ public class XrgStore extends BaseEntity
             .append("count", getCount())
             .append("purchasePrice", getPurchasePrice())
             .append("setPrice", getSetPrice())
+            .append("cat", getCat())
             .toString();
     }
 }

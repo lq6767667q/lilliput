@@ -14,10 +14,11 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
         <result property="size"    column="size"    />
         <result property="purchasePrice"    column="purchase_price"    />
         <result property="count"    column="count"    />
+        <result property="cat"    column="cat"    />
     </resultMap>
 	
 	<sql id="selectXrgPurchaserecordVo">
-        select id, purchasetime, supplier, supplier_address, item_number, store_number, size, purchase_price, count from xrg_purchaserecord
+        select id, purchasetime, supplier, cat, supplier_address, item_number, store_number, size, purchase_price, count from xrg_purchaserecord
     </sql>
 	
     <select id="selectXrgPurchaserecordList" parameterType="XrgPurchaserecord" resultMap="XrgPurchaserecordResult">
@@ -30,6 +31,7 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
              <if test="itemNumber != null  and itemNumber != '' "> and item_number like concat('%',#{itemNumber},'%')</if>
              <if test="storeNumber != null  and storeNumber != '' "> and store_number = #{storeNumber}</if>
              <if test="size != null  and size != '' "> and size like concat('%',#{size},'%')</if>
+             <if test="cat != null  and cat != '' "> and cat like concat('%',#{cat},'%')</if>
              <if test="purchasePrice != null  and purchasePrice != '' "> and purchase_price = #{purchasePrice}</if>
              <if test="count != null  and count != '' "> and count = #{count}</if>
          </where>
@@ -52,6 +54,7 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 			<if test="size != null  and size != ''  ">size,</if>
 			<if test="purchasePrice != null  and purchasePrice != ''  ">purchase_price,</if>
 			<if test="count != null  and count != ''  ">count,</if>
+			<if test="cat != null  and cat != ''  ">cat,</if>
          </trim>
         <trim prefix="values (" suffix=")" suffixOverrides=",">
 			<if test="purchasetime != null  ">#{purchasetime},</if>
@@ -62,6 +65,7 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 			<if test="size != null  and size != ''  ">#{size},</if>
 			<if test="purchasePrice != null  and purchasePrice != ''  ">#{purchasePrice},</if>
 			<if test="count != null  and count != ''  ">#{count},</if>
+			<if test="cat != null  and cat != ''  ">#{cat},</if>
          </trim>
     </insert>
 	 
@@ -76,6 +80,7 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
             <if test="size != null  and size != ''  ">size = #{size},</if>
             <if test="purchasePrice != null  and purchasePrice != ''  ">purchase_price = #{purchasePrice},</if>
             <if test="count != null  and count != ''  ">count = #{count},</if>
+            <if test="cat != null  and cat != ''  ">count = #{cat},</if>
         </trim>
         where id = #{id}
     </update>

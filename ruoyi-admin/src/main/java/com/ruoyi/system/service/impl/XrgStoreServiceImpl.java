@@ -80,6 +80,7 @@ public class XrgStoreServiceImpl implements IXrgStoreService
 			xrgPurchaserecord.setPurchasetime(new Date());
 			xrgPurchaserecord.setPurchasePrice(xrgStore.getPurchasePrice());
 			xrgPurchaserecord.setCount(xrgStore.getCount());
+			xrgPurchaserecord.setCat(xrgStore.getCat());
 			return xrgPurchaserecordService.insertXrgPurchaserecord(xrgPurchaserecord);
 		}
 		return -1;
@@ -124,6 +125,7 @@ public class XrgStoreServiceImpl implements IXrgStoreService
 			xrgSellrecord.setSellPrice(sellprice);
 			xrgSellrecord.setSelltime(new Date());
 			xrgSellrecord.setSetPrice(xrgStore.getSetPrice());
+			xrgSellrecord.setCat(xrgStore.getCat());
 			return xrgSellrecordService.insertXrgSellrecord(xrgSellrecord);
 		}
 		return -1;
