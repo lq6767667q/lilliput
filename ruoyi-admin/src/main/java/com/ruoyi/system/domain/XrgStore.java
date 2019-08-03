@@ -41,6 +41,8 @@ public class XrgStore extends BaseEntity
 	private String setPrice;
 	/** 定价 */
 	private String cat;
+	/** 备注 */
+	private String ramark;
 
 	public void setId(Integer id)
 	{
@@ -158,6 +160,14 @@ public class XrgStore extends BaseEntity
 		this.cat = cat;
 	}
 
+	public String getRamark() {
+		return ramark;
+	}
+
+	public void setRamark(String ramark) {
+		this.ramark = ramark;
+	}
+
 	public String toString() {
         return new ToStringBuilder(this,ToStringStyle.MULTI_LINE_STYLE)
             .append("id", getId())
@@ -172,6 +182,7 @@ public class XrgStore extends BaseEntity
             .append("purchasePrice", getPurchasePrice())
             .append("setPrice", getSetPrice())
             .append("cat", getCat())
+            .append("remark", getRamark())
             .toString();
     }
 }

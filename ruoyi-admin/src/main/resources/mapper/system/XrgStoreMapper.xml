@@ -18,10 +18,11 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
         <result property="purchasePrice"    column="purchase_price"    />
         <result property="setPrice"    column="set_price"    />
         <result property="cat"    column="cat"    />
+        <result property="remark"    column="remark"    />
     </resultMap>
 	
 	<sql id="selectXrgStoreVo">
-        select id, addtime, supplier, supplier_address, item_number,store_number, size, purchase_count, sell_count, count, purchase_price, set_price ,cat from xrg_store
+        select id, addtime, supplier, supplier_address, item_number,store_number, size, purchase_count, sell_count, count, purchase_price, set_price ,cat ,remark from xrg_store
     </sql>
 	
     <select id="selectXrgStoreList" parameterType="XrgStore" resultMap="XrgStoreResult">
@@ -63,6 +64,7 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 			<if test="purchasePrice != null  and purchasePrice != ''  ">purchase_price,</if>
 			<if test="setPrice != null  and setPrice != ''  ">set_price,</if>
 			<if test="cat != null  and cat != ''  ">cat,</if>
+			<if test="remark != null  and remark != ''  ">remark,</if>
         addtime) values (
 			<if test="id != null  and id != ''  ">#{id},</if>
 			<if test="supplier != null  and supplier != ''  ">#{supplier},</if>
@@ -76,6 +78,7 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 			<if test="purchasePrice != null  and purchasePrice != ''  ">#{purchasePrice},</if>
 			<if test="setPrice != null  and setPrice != ''  ">#{setPrice},</if>
 			<if test="cat != null  and cat != ''  ">#{cat},</if>
+			<if test="remark != null  and remark != ''  ">#{remark},</if>
             sysdate()
          )
     </insert>
@@ -94,6 +97,7 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
             <if test="purchasePrice != null  and purchasePrice != ''  ">purchase_price = #{purchasePrice},</if>
             <if test="setPrice != null  and setPrice != ''  ">set_price = #{setPrice},</if>
             <if test="cat != null  and cat != ''  ">cat = #{cat},</if>
+            <if test="remark != null  and remark != ''  ">remark = #{remark},</if>
         </trim>
         where id = #{id}
     </update>
