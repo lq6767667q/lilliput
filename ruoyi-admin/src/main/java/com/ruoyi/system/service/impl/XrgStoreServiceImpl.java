@@ -112,14 +112,14 @@ public class XrgStoreServiceImpl implements IXrgStoreService
 
     @Override
 	@Transactional
-    public int sell(XrgStore xrgStore, int sellnumInt, String sellprice) {
+    public int sell(XrgStore xrgStore, int sellnumInt, String sellprice, String sellsize) {
 		int updateFlag = xrgStoreMapper.updateXrgStore(xrgStore);
 		if(updateFlag>=0){
 			XrgSellrecord xrgSellrecord = new XrgSellrecord();
 			xrgSellrecord.setItemNumber(xrgStore.getItemNumber());
 			xrgSellrecord.setSupplier(xrgStore.getSupplier());
 			xrgSellrecord.setSupplierAddress(xrgStore.getSupplierAddress());
-			xrgSellrecord.setSize(xrgStore.getSize());
+			xrgSellrecord.setSize(sellsize);
 			xrgSellrecord.setStoreNumber(xrgStore.getStoreNumber());
 			xrgSellrecord.setSellCount(sellnumInt);
 			xrgSellrecord.setSellPrice(sellprice);
