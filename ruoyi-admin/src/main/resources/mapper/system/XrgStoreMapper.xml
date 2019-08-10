@@ -26,7 +26,9 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
     </sql>
 	
     <select id="selectXrgStoreList" parameterType="XrgStore" resultMap="XrgStoreResult">
-        <include refid="selectXrgStoreVo"/>
+        select * from (
+        select id, addtime, supplier, supplier_address, item_number,store_number, size, purchase_count, sell_count,
+        count, purchase_price, set_price ,cat ,remark from xrg_store
         <where>  
             <if test="id != null  and id != '' "> and id = #{id}</if>
              <if test="addtime != null "> and addtime = #{addtime}</if>
@@ -41,8 +43,10 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
              <if test="purchasePrice != null  and purchasePrice != '' "> and purchase_price = #{purchasePrice}</if>
              <if test="setPrice != null  and setPrice != '' "> and set_price = #{setPrice}</if>
              <if test="cat != null  and cat != '' "> and cat like concat('%',#{cat},'%')</if>
-         </where>
-        order by addtime desc, supplier
+         </where> ) t
+        left join  (select storeid, GROUP_CONCAT(size) as sizes from xrg_sellrecord where storeid is not null group by storeid) a
+        on t.id = a.storeid
+        order by t.addtime desc, t.supplier
     </select>
     
     <select id="selectXrgStoreById" parameterType="String" resultMap="XrgStoreResult">

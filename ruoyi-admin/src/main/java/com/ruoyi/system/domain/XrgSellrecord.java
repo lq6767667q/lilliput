@@ -37,6 +37,8 @@ public class XrgSellrecord extends BaseEntity
 	private String setPrice;
 	/** 类别 */
 	private String cat;
+	/** storeid */
+	private Integer storeid;
 
 	public void setId(Integer id) 
 	{
@@ -135,6 +137,17 @@ public class XrgSellrecord extends BaseEntity
 		this.cat = cat;
 	}
 
+
+	public Integer getStoreid() {
+		return storeid;
+	}
+
+	public void setStoreid(Integer storeid) {
+		this.storeid = storeid;
+	}
+
+
+
 	public String toString() {
         return new ToStringBuilder(this,ToStringStyle.MULTI_LINE_STYLE)
             .append("id", getId())
@@ -146,6 +159,7 @@ public class XrgSellrecord extends BaseEntity
             .append("size", getSize())
             .append("sellCount", getSellCount())
             .append("cat", getCat())
+            .append("storeid", getStoreid())
             .toString();
     }
 }

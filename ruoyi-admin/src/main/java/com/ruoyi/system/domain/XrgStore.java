@@ -3,6 +3,8 @@ package com.ruoyi.system.domain;
 import org.apache.commons.lang3.builder.ToStringBuilder;
 import org.apache.commons.lang3.builder.ToStringStyle;
 import com.ruoyi.common.core.domain.BaseEntity;
+import org.springframework.transaction.annotation.Transactional;
+
 import java.util.Date;
 
 /**
@@ -43,6 +45,8 @@ public class XrgStore extends BaseEntity
 	private String cat;
 	/** 备注 */
 	private String ramark;
+
+	private String sizes;
 
 	public void setId(Integer id)
 	{
@@ -168,6 +172,15 @@ public class XrgStore extends BaseEntity
 		this.ramark = ramark;
 	}
 
+
+	public String getSizes() {
+		return sizes;
+	}
+
+	public void setSizes(String sizes) {
+		this.sizes = sizes;
+	}
+
 	public String toString() {
         return new ToStringBuilder(this,ToStringStyle.MULTI_LINE_STYLE)
             .append("id", getId())
@@ -183,6 +196,7 @@ public class XrgStore extends BaseEntity
             .append("setPrice", getSetPrice())
             .append("cat", getCat())
             .append("remark", getRamark())
+            .append("sizes", getSizes())
             .toString();
     }
 }

@@ -16,6 +16,7 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
         <result property="sellPrice"    column="sell_price"    />
         <result property="setPrice"    column="set_price"    />
         <result property="cat"    column="cat"    />
+        <result property="storeid"    column="storeid"    />
     </resultMap>
 
     <resultMap type="JSON2" id="countRecordResult">
@@ -62,6 +63,7 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 			<if test="sellPrice != null  ">sell_price,</if>
 			<if test="setPrice != null  ">set_price,</if>
 			<if test="cat != null  ">cat,</if>
+			<if test="storeid != null  ">storeid,</if>
          </trim>
         <trim prefix="values (" suffix=")" suffixOverrides=",">
 			<if test="selltime != null  ">#{selltime},</if>
@@ -74,6 +76,7 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 			<if test="sellPrice != null  ">#{sellPrice},</if>
 			<if test="setPrice != null  ">#{setPrice},</if>
 			<if test="cat != null  ">#{cat},</if>
+			<if test="storeid != null  ">#{storeid},</if>
          </trim>
     </insert>
 	 
