@@ -1085,8 +1085,8 @@
 				}
                 $.modal.open("出库", $.operate.xrg_sellUrl(id));
             },
-            xrg_back: function(id) {
-                $.modal.confirm("确定退货该条" + $.table._option.itemNumber + "记录吗？", function() {
+            xrg_back: function(id, itemNumber) {
+                $.modal.confirm("确定退货该条" + itemNumber + "记录吗？", function() {
                     var url = $.common.isEmpty(id) ? $.table._option.backUrl : $.table._option.backUrl.replace("{id}", id);
                     if($.table._option.type == table_type.bootstrapTreeTable) {
                         $.operate.get(url);
