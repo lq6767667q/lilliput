@@ -1091,7 +1091,7 @@
                     if($.table._option.type == table_type.bootstrapTreeTable) {
                         $.operate.get(url);
                     } else {
-                        var data = { "ids": id };
+                        var data = { "id": id };
                         $.operate.submit(url, "post", "json", data);
                     }
                 });

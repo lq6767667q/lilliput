@@ -24,7 +24,7 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
     </resultMap>
 	
 	<sql id="selectXrgSellrecordVo">
-        select id, selltime, supplier, cat, supplier_address, item_number, store_number, size, sell_count, sell_price , set_price from xrg_sellrecord
+        select id, selltime, supplier, cat, supplier_address, item_number, store_number, size, sell_count, sell_price , set_price, storeid from xrg_sellrecord
     </sql>
 	
     <select id="selectXrgSellrecordList" parameterType="XrgSellrecord" resultMap="XrgSellrecordResult">

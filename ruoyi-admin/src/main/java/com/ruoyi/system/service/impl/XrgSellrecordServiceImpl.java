@@ -98,6 +98,7 @@ public class XrgSellrecordServiceImpl implements IXrgSellrecordService
 			Integer storeId = xrgSellrecord.getStoreid();
 			XrgStore xrgStore = xrgStoreService.selectXrgStoreById(storeId+"");
 			xrgStore.setCount(xrgStore.getCount() + xrgSellrecord.getSellCount());
+			xrgStore.setSellCount(xrgStore.getSellCount() - xrgSellrecord.getSellCount());
 			xrgStoreService.updateXrgStore(xrgStore);
 			xrgSellrecordMapper.deleteXrgSellrecordById(Integer.parseInt(id));
 		}
