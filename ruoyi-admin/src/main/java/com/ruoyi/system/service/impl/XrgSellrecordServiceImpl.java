@@ -5,6 +5,8 @@ import java.util.List;
 
 import com.alibaba.fastjson.JSONObject;
 import com.ruoyi.system.domain.XrgStatisticsReq;
+import com.ruoyi.system.domain.XrgStore;
+import com.ruoyi.system.service.IXrgStoreService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import com.ruoyi.system.mapper.XrgSellrecordMapper;
@@ -23,6 +25,9 @@ public class XrgSellrecordServiceImpl implements IXrgSellrecordService
 {
 	@Autowired
 	private XrgSellrecordMapper xrgSellrecordMapper;
+
+	@Autowired
+	private IXrgStoreService xrgStoreService;
 
 	/**
      * 查询出库记录信息
@@ -82,6 +87,24 @@ public class XrgSellrecordServiceImpl implements IXrgSellrecordService
 	public int deleteXrgSellrecordByIds(String ids)
 	{
 		return xrgSellrecordMapper.deleteXrgSellrecordByIds(Convert.toStrArray(ids));
+	}
+
+
+	@Override
+	public int back(String id)
+	{
+		XrgSellrecord xrgSellrecord = xrgSellrecordMapper.selectXrgSellrecordById(Integer.parseInt(id));
+		try{
+			Integer storeId = xrgSellrecord.getStoreid();
+			XrgStore xrgStore = xrgStoreService.selectXrgStoreById(storeId+"");
+			xrgStore.setCount(xrgStore.getCount() + 1);
+			xrgStoreService.updateXrgStore(xrgStore);
+			xrgSellrecordMapper.deleteXrgSellrecordById(Integer.parseInt(id));
+		}
+		catch (Exception e){
+			return -1;
+		}
+		return 1;
 	}
 
 

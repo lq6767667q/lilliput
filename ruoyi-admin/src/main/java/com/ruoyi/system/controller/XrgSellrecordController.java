@@ -123,5 +123,17 @@ public class XrgSellrecordController extends BaseController
 	{		
 		return toAjax(xrgSellrecordService.deleteXrgSellrecordByIds(ids));
 	}
+
+	/**
+	 * 退货
+	 */
+	@RequiresPermissions("system:xrgSellrecord:back")
+	@Log(title = "退货", businessType = BusinessType.DELETE)
+	@PostMapping( "/back")
+	@ResponseBody
+	public AjaxResult back(String id)
+	{
+		return toAjax(xrgSellrecordService.back(id));
+	}
 	
 }

@@ -1084,6 +1084,18 @@
                     return;
 				}
                 $.modal.open("出库", $.operate.xrg_sellUrl(id));
+            },
+            xrg_back: function(id) {
+                $.modal.confirm("确定退货该条" + $.table._option.itemNumber + "记录吗？", function() {
+                    var url = $.common.isEmpty(id) ? $.table._option.backUrl : $.table._option.backUrl.replace("{id}", id);
+                    if($.table._option.type == table_type.bootstrapTreeTable) {
+                        $.operate.get(url);
+                    } else {
+                        var data = { "ids": id };
+                        $.operate.submit(url, "post", "json", data);
+                    }
+                });
+
             }
         },
         // 校验封装处理

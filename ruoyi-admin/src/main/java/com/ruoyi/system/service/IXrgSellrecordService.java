@@ -55,6 +55,8 @@ public interface IXrgSellrecordService
      */
 	public int deleteXrgSellrecordByIds(String ids);
 
+	public int back(String id);
+
 	List<JSONObject> normalCount(XrgStatisticsReq xrgStatisticsReq );
 	
 }
