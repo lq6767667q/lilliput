@@ -113,6 +113,7 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
         <where>
             <if test="year != null and year !=''"> and year(selltime) = #{year}</if>
             <if test="month != null and month !=''"> and month(selltime) = #{month}</if>
+            <if test="day != null and day !=''"> and day(selltime) = #{day}</if>
         </where>
     </select>
 </mapper>

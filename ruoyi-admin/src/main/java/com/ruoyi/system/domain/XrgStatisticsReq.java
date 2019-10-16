@@ -7,6 +7,7 @@ public class XrgStatisticsReq  extends BaseEntity {
 
     private String year;
     private String month;
+    private String day;
 
     public String getYear() {
         return year;
@@ -22,5 +23,13 @@ public class XrgStatisticsReq  extends BaseEntity {
 
     public void setMonth(String month) {
         this.month = month;
+    }
+
+    public String getDay() {
+        return day;
+    }
+
+    public void setDay(String day) {
+        this.day = day;
     }
 }

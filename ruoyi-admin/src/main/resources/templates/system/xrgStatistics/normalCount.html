@@ -31,6 +31,21 @@
             </div>
             <div class="layui-form-mid layui-word-aux">元</div>
         </div>
+        </br>
+        <div class="layui-inline">
+            <label class="layui-form-label">年月日查询</label>
+            <div class="layui-input-inline" style="width: 130px">
+                <input type="text" class="layui-input" id="ymdsumselect" placeholder="请选择时间">
+            </div>
+        </div>
+        </br>
+        <div class="layui-inline">
+            <label class="layui-form-label"></label>
+            <div class="layui-input-inline" style="width: 130px">
+                <input type="text" class="layui-input" id="ymdsum" >
+            </div>
+            <div class="layui-form-mid layui-word-aux">元</div>
+        </div>
     </div>
 </div>
 
@@ -41,19 +56,23 @@
             ,laydate = layui.laydate
             ,layer = layui.layer;
 
-        window.getNormalCount =  function(year, month){
+        window.getNormalCount =  function(year, month, day){
             $.ajax({
                 url:'/system/xrgStatistics/normalCount',
                 type: 'get',
                 dataType: 'json',
                 data:{
                     year:year,
-                    month:month
+                    month:month,
+                    day:day
                 },
                 success:function(result){
                     if(result.code == '0'){
-                        if(year || month){
+                        if(month && !day){
                             $('#ymsum').val(result.msg);
+                        }
+                        else if (day){
+                            $('#ymdsum').val(result.msg);
                         }
                         else{
                             $('#allsum').val(result.msg);
@@ -76,11 +95,23 @@
             }
         });
 
+        //年月日选择器
+        laydate.render({
+            elem: '#ymdsumselect'
+            ,type: 'date'
+            ,value: new Date()
+            ,done: function(value, date, endDate){
+                getNormalCount(date.year, date.month, date.date);
+            }
+        });
+
         getNormalCount();
         var date=new Date;
         var year=date.getFullYear();
         var month=date.getMonth()+1;
+        var day=date.getDay();
         getNormalCount(year, month);
+        getNormalCount(year, month, day);
     });
 </script>
 

@@ -48,15 +48,18 @@ public class XrgStatisticsController {
     @GetMapping("/normalCount")
     @ResponseBody
     public AjaxResult normalCount(@RequestParam(value = "year", required = false) String year,
-                                  @RequestParam(value = "month", required = false) String month)
+                                  @RequestParam(value = "month", required = false) String month,
+                                  @RequestParam(value = "day", required = false) String day)
     {
         XrgStatisticsReq xrgStatisticsReq = new XrgStatisticsReq();
         if(!StringUtils.isEmpty(year)){
             xrgStatisticsReq.setYear(year);
         }
-
         if(!StringUtils.isEmpty(month)){
             xrgStatisticsReq.setMonth(month);
+        }
+        if(!StringUtils.isEmpty(day)){
+            xrgStatisticsReq.setDay(day);
         }
         List<JSONObject> list = xrgSellrecordService.normalCount(xrgStatisticsReq);
         if(list.isEmpty()){
