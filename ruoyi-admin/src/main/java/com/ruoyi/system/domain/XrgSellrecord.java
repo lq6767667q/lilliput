@@ -3,6 +3,8 @@ package com.ruoyi.system.domain;
 import org.apache.commons.lang3.builder.ToStringBuilder;
 import org.apache.commons.lang3.builder.ToStringStyle;
 import com.ruoyi.common.core.domain.BaseEntity;
+
+import javax.persistence.Transient;
 import java.util.Date;
 
 /**
@@ -39,6 +41,9 @@ public class XrgSellrecord extends BaseEntity
 	private String cat;
 	/** storeid */
 	private Integer storeid;
+
+	@Transient
+	private String purchasePrice;
 
 	public void setId(Integer id) 
 	{
@@ -146,7 +151,13 @@ public class XrgSellrecord extends BaseEntity
 		this.storeid = storeid;
 	}
 
+	public String getPurchasePrice() {
+		return purchasePrice;
+	}
 
+	public void setPurchasePrice(String purchasePrice) {
+		this.purchasePrice = purchasePrice;
+	}
 
 	public String toString() {
         return new ToStringBuilder(this,ToStringStyle.MULTI_LINE_STYLE)

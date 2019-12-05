@@ -22,27 +22,36 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
     <resultMap type="JSON2" id="countRecordResult">
         <result property="sellPrice"    column="sellPrice"   />
     </resultMap>
+
+    <resultMap id="listMap" type="XrgSellrecord" extends="XrgSellrecordResult">
+        <result column="purchase_price" jdbcType="VARCHAR" property="purchasePrice" />
+    </resultMap>
 	
 	<sql id="selectXrgSellrecordVo">
         select id, selltime, supplier, cat, supplier_address, item_number, store_number, size, sell_count, sell_price , set_price, storeid from xrg_sellrecord
     </sql>
+
+	<sql id="selectXrgSellrecordVoA">
+        select a.id, a.selltime, a.supplier, a.cat, a.supplier_address, a.item_number, a.store_number, a.size, a.sell_count, a.sell_price , a.set_price, a.storeid
+    </sql>
 	
-    <select id="selectXrgSellrecordList" parameterType="XrgSellrecord" resultMap="XrgSellrecordResult">
-        <include refid="selectXrgSellrecordVo"/>
+    <select id="selectXrgSellrecordList" parameterType="XrgSellrecord" resultMap="listMap">
+        <include refid="selectXrgSellrecordVoA"/>
+        ,b.purchase_price from xrg_sellrecord a left join xrg_store b on a.storeid = b.id
         <where>  
-            <if test="id != null "> and id = #{id}</if>
-             <if test="selltime != null "> and selltime = #{selltime}</if>
-             <if test="supplier != null  and supplier != '' "> and supplier like concat('%',#{supplier},'%')</if>
-             <if test="supplierAddress != null  and supplierAddress != '' "> and supplier_address like concat('%',#{supplierAddress},'%')</if>
-             <if test="itemNumber != null  and itemNumber != '' "> and item_number like concat('%',#{itemNumber},'%')</if>
-             <if test="storeNumber != null  and storeNumber != '' "> and store_number = #{storeNumber}</if>
-             <if test="size != null  and size != '' "> and size like concat('%',#{size},'%')</if>
-             <if test="cat != null  and cat != '' "> and cat like concat('%',#{cat},'%')</if>
-             <if test="sellCount != null "> and sell_count = #{sellCount}</if>
-             <if test="sellPrice != null and sellPrice != '' "> and sell_price = #{sellPrice}</if>
-             <if test="setPrice != null and setPrice != '' "> and set_price = #{setPrice}</if>
+            <if test="id != null "> and a.id = #{id}</if>
+             <if test="selltime != null "> and a.selltime = #{selltime}</if>
+             <if test="supplier != null  and supplier != '' "> and a.supplier like concat('%',#{supplier},'%')</if>
+             <if test="supplierAddress != null  and supplierAddress != '' "> and a.supplier_address like concat('%',#{supplierAddress},'%')</if>
+             <if test="itemNumber != null  and itemNumber != '' "> and a.item_number like concat('%',#{itemNumber},'%')</if>
+             <if test="storeNumber != null  and storeNumber != '' "> and a.store_number = #{storeNumber}</if>
+             <if test="size != null  and size != '' "> and a.size like concat('%',#{size},'%')</if>
+             <if test="cat != null  and cat != '' "> and a.cat like concat('%',#{cat},'%')</if>
+             <if test="sellCount != null "> and a.sell_count = #{sellCount}</if>
+             <if test="sellPrice != null and sellPrice != '' "> and a.sell_price = #{sellPrice}</if>
+             <if test="setPrice != null and setPrice != '' "> and a.set_price = #{setPrice}</if>
          </where>
-        order by selltime desc
+        order by a.selltime desc
     </select>
     
     <select id="selectXrgSellrecordById" parameterType="Integer" resultMap="XrgSellrecordResult">
