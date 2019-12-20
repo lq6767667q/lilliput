@@ -6,66 +6,78 @@
     <link rel="stylesheet" href="/ajax/libs/layui/2.5.1/css/layui.mobile.css">
     <script src="/js/jquery.min.js"></script>
 </head>
+<style>
+    .layui-inline{
+        position: relative !important;
+    }
+    .addText{
+        width: 20px;
+        position: absolute;
+        top: 9px;
+        left: 214px;
+        color: #999!important;
+    }
+</style>
 <body>
 <div class="layui-form">
     <div class="layui-form-item">
         <div class="layui-inline">
-            <label class="layui-form-label">总收入</label>
-            <div class="layui-input-inline" style="width: 130px">
+            <label class="layui-form-label" style="width: 70px">总收入</label>
+            <div class="layui-input-inline" style="width: 95px">
                 <input type="text" class="layui-input" id="allsum" >
             </div>
-            <div class="layui-form-mid layui-word-aux">元</div>
+            <div class="addText">元</div>
         </div>
         <div class="layui-inline">
-            <label class="layui-form-label">利润</label>
-            <div class="layui-input-inline" style="width: 130px">
+            <label class="layui-form-label" style="width: 70px">利润</label>
+            <div class="layui-input-inline" style="width: 95px">
                 <input type="text" class="layui-input" id="allprofit" >
             </div>
-            <div class="layui-form-mid layui-word-aux">元</div>
+            <div class="addText">元</div>
         </div>
         </br>
         <div class="layui-inline">
-            <label class="layui-form-label">年月查询</label>
-            <div class="layui-input-inline" style="width: 130px">
+            <label class="layui-form-label" style="width: 70px">年月查询</label>
+            <div class="layui-input-inline" style="width: 95px">
                 <input type="text" class="layui-input" id="ymsumselect" placeholder="请选择月份">
             </div>
         </div>
         </br>
         <div class="layui-inline">
-            <label class="layui-form-label"></label>
-            <div class="layui-input-inline" style="width: 130px">
+            <label class="layui-form-label" style="width: 70px"></label>
+            <div class="layui-input-inline" style="width: 95px">
                 <input type="text" class="layui-input" id="ymsum" >
             </div>
-            <div class="layui-form-mid layui-word-aux">元</div>
+            <div class="addText">元</div>
         </div>
         <div class="layui-inline">
-            <label class="layui-form-label">利润</label>
-            <div class="layui-input-inline" style="width: 130px">
+            <label class="layui-form-label" style="width: 70px">利润</label>
+            <div class="layui-input-inline" style="width: 95px">
                 <input type="text" class="layui-input" id="ymprofit" >
             </div>
-            <div class="layui-form-mid layui-word-aux">元</div>
+            <div class="addText">元</div>
         </div>
         </br>
         <div class="layui-inline">
-            <label class="layui-form-label">年月日查询</label>
-            <div class="layui-input-inline" style="width: 130px">
+            <label class="layui-form-label" style="width: 70px">年月日查询</label>
+            <div class="layui-input-inline" style="width: 95px">
                 <input type="text" class="layui-input" id="ymdsumselect" placeholder="请选择时间">
             </div>
         </div>
         </br>
         <div class="layui-inline">
-            <label class="layui-form-label"></label>
-            <div class="layui-input-inline" style="width: 130px">
+            <label class="layui-form-label" style="width: 70px"></label>
+            <div class="layui-input-inline" style="width: 95px">
                 <input type="text" class="layui-input" id="ymdsum" >
             </div>
-            <div class="layui-form-mid layui-word-aux">元</div>
+            <div class="addText">元</div>
         </div>
         <div class="layui-inline">
-            <label class="layui-form-label">利润</label>
-            <div class="layui-input-inline" style="width: 130px">
+            <label class="layui-form-label" style="width: 70px">利润</label>
+            <div class="layui-input-inline" style="width: 95px">
                 <input type="text" class="layui-input" id="ymdprofit" >
             </div>
-            <div class="layui-form-mid layui-word-aux">元</div>
+            <div class="addText">元</div>
         </div>
     </div>
 </div>
