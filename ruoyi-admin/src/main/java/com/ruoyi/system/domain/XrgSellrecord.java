@@ -41,9 +41,9 @@ public class XrgSellrecord extends BaseEntity
 	private String cat;
 	/** storeid */
 	private Integer storeid;
-
-	@Transient
+	/** 进价 */
 	private String purchasePrice;
+
 
 	public void setId(Integer id) 
 	{

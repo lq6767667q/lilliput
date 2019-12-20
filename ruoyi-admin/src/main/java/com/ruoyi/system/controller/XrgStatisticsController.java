@@ -67,7 +67,7 @@ public class XrgStatisticsController {
         }
         else{
             JSONObject object = list.get(0);
-            return AjaxResult.success(object.getString("sellPrice"));
+            return AjaxResult.success(object);
         }
     }
 

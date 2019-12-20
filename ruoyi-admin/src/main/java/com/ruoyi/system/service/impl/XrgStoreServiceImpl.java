@@ -127,6 +127,7 @@ public class XrgStoreServiceImpl implements IXrgStoreService
 			xrgSellrecord.setSetPrice(xrgStore.getSetPrice());
 			xrgSellrecord.setCat(xrgStore.getCat());
 			xrgSellrecord.setStoreid(xrgStore.getId());
+			xrgSellrecord.setPurchasePrice(xrgStore.getPurchasePrice());
 			return xrgSellrecordService.insertXrgSellrecord(xrgSellrecord);
 		}
 		return -1;

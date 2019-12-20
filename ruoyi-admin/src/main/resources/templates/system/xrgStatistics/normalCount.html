@@ -16,6 +16,13 @@
             </div>
             <div class="layui-form-mid layui-word-aux">元</div>
         </div>
+        <div class="layui-inline">
+            <label class="layui-form-label">利润</label>
+            <div class="layui-input-inline" style="width: 130px">
+                <input type="text" class="layui-input" id="allprofit" >
+            </div>
+            <div class="layui-form-mid layui-word-aux">元</div>
+        </div>
         </br>
         <div class="layui-inline">
             <label class="layui-form-label">年月查询</label>
@@ -31,6 +38,13 @@
             </div>
             <div class="layui-form-mid layui-word-aux">元</div>
         </div>
+        <div class="layui-inline">
+            <label class="layui-form-label">利润</label>
+            <div class="layui-input-inline" style="width: 130px">
+                <input type="text" class="layui-input" id="ymprofit" >
+            </div>
+            <div class="layui-form-mid layui-word-aux">元</div>
+        </div>
         </br>
         <div class="layui-inline">
             <label class="layui-form-label">年月日查询</label>
@@ -43,6 +57,13 @@
             <label class="layui-form-label"></label>
             <div class="layui-input-inline" style="width: 130px">
                 <input type="text" class="layui-input" id="ymdsum" >
+            </div>
+            <div class="layui-form-mid layui-word-aux">元</div>
+        </div>
+        <div class="layui-inline">
+            <label class="layui-form-label">利润</label>
+            <div class="layui-input-inline" style="width: 130px">
+                <input type="text" class="layui-input" id="ymdprofit" >
             </div>
             <div class="layui-form-mid layui-word-aux">元</div>
         </div>
@@ -68,14 +89,18 @@
                 },
                 success:function(result){
                     if(result.code == '0'){
+                        var data = result.data;
                         if(month && !day){
-                            $('#ymsum').val(result.msg);
+                            $('#ymsum').val(data.sellPrice);
+                            $('#ymprofit').val(data.profit);
                         }
                         else if (day){
-                            $('#ymdsum').val(result.msg);
+                            $('#ymdsum').val(data.sellPrice);
+                            $('#ymdprofit').val(data.profit);
                         }
                         else{
-                            $('#allsum').val(result.msg);
+                            $('#allsum').val(data.sellPrice);
+                            $('#allprofit').val(data.profit);
                         }
                     }
                 },
