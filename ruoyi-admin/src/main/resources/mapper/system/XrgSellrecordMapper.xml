@@ -115,7 +115,10 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
     </delete>
 
     <select id="normalCount"  resultMap="countRecordResult" parameterType="XrgStatisticsReq">
-         select ifnull(sum(sell_price),0) as sellPrice, (ifnull(sum(sell_price),0) - ifnull(sum(purchase_price),0)) as profit from xrg_sellrecord
+         select ifnull(sum(sell_price),0) as sellPrice, (ifnull(sum(sell_price),0) - ifnull(sum(purchase_price),0)) as profit from
+         (
+         select cast(purchase_price AS DECIMAL (19, 2)) as purchase_price, cast(sell_price AS DECIMAL (19, 2)) as sell_price from xrg_sellrecord
+         ) a
         <where>
             <if test="year != null and year !=''"> and year(selltime) = #{year}</if>
             <if test="month != null and month !=''"> and month(selltime) = #{month}</if>
