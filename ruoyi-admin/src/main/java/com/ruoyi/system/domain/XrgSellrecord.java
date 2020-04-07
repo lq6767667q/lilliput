@@ -43,6 +43,8 @@ public class XrgSellrecord extends BaseEntity
 	private Integer storeid;
 	/** 进价 */
 	private String purchasePrice;
+	/** 支付方式 */
+	private String payType;
 
 
 	public void setId(Integer id) 
@@ -159,18 +161,31 @@ public class XrgSellrecord extends BaseEntity
 		this.purchasePrice = purchasePrice;
 	}
 
+	@Override
 	public String toString() {
-        return new ToStringBuilder(this,ToStringStyle.MULTI_LINE_STYLE)
-            .append("id", getId())
-            .append("selltime", getSelltime())
-            .append("supplier", getSupplier())
-            .append("supplierAddress", getSupplierAddress())
-            .append("itemNumber", getItemNumber())
-            .append("storeNumber", getStoreNumber())
-            .append("size", getSize())
-            .append("sellCount", getSellCount())
-            .append("cat", getCat())
-            .append("storeid", getStoreid())
-            .toString();
-    }
+		return "XrgSellrecord{" +
+				"id=" + id +
+				", selltime=" + selltime +
+				", supplier='" + supplier + '\'' +
+				", supplierAddress='" + supplierAddress + '\'' +
+				", itemNumber='" + itemNumber + '\'' +
+				", storeNumber='" + storeNumber + '\'' +
+				", size='" + size + '\'' +
+				", sellCount=" + sellCount +
+				", sellPrice='" + sellPrice + '\'' +
+				", setPrice='" + setPrice + '\'' +
+				", cat='" + cat + '\'' +
+				", storeid=" + storeid +
+				", purchasePrice='" + purchasePrice + '\'' +
+				", payType='" + payType + '\'' +
+				'}';
+	}
+
+	public String getPayType() {
+		return payType;
+	}
+
+	public void setPayType(String payType) {
+		this.payType = payType;
+	}
 }

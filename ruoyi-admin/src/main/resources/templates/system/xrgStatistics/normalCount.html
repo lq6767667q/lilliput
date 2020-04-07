@@ -22,6 +22,19 @@
 <div class="layui-form">
     <div class="layui-form-item">
         <div class="layui-inline">
+            <label class="layui-form-label" style="width: 70px">支付方式</label>
+            <div class="layui-input-inline" style="width: 95px;height: 38px">
+                <select id="payType" name="payType" lay-filter="payType" style="width: 90px;height: 22px">
+                    <option value="">所有</option>
+                    <option value="0">微信</option>
+                    <option value="1">支付宝</option>
+                    <option value="2">现金</option>
+                    <option value="3">其他</option>
+                </select>
+            </div>
+        </div>
+        </br>
+        <div class="layui-inline">
             <label class="layui-form-label" style="width: 70px">总收入</label>
             <div class="layui-input-inline" style="width: 95px">
                 <input type="text" class="layui-input" id="allsum" >
@@ -84,17 +97,23 @@
 
 <script src="/ajax/libs/layui/2.5.1/layui.js"></script>
 <script>
-    layui.use(['jquery', 'laydate', 'layer'], function(){
+    var ymsum_y,ymsum_m,ymdsum_y,ymdsum_m,ymdsum_d;
+
+    layui.use(['jquery', 'laydate', 'layer', 'form'], function(){
         var $ = layui.jquery
             ,laydate = layui.laydate
-            ,layer = layui.layer;
+            ,layer = layui.layer
+            ,form  = layui.form;
 
-        window.getNormalCount =  function(year, month, day){
+        form.render();
+
+        window.getNormalCount =  function(payType, year, month, day){
             $.ajax({
                 url:'/system/xrgStatistics/normalCount',
                 type: 'get',
                 dataType: 'json',
                 data:{
+                    payType:payType,
                     year:year,
                     month:month,
                     day:day
@@ -128,7 +147,9 @@
             ,type: 'month'
             ,value: new Date()
             ,done: function(value, date, endDate){
-                getNormalCount(date.year, date.month);
+                getNormalCount($('#payType').val(), date.year, date.month);
+                ymsum_y = date.year;
+                ymsum_m = date.month;
             }
         });
 
@@ -138,17 +159,33 @@
             ,type: 'date'
             ,value: new Date()
             ,done: function(value, date, endDate){
-                getNormalCount(date.year, date.month, date.date);
+                getNormalCount($('#payType').val(), date.year, date.month, date.date);
+                ymdsum_y = date.year;
+                ymdsum_m = date.month;
+                ymdsum_d = date.date;
             }
         });
 
-        getNormalCount();
+        //初始化当天数据
         var date=new Date;
         var year=date.getFullYear();
         var month=date.getMonth()+1;
         var day=date.getDate();
-        getNormalCount(year, month);
-        getNormalCount(year, month, day);
+        getNormalCount();
+        getNormalCount('', year, month);
+        getNormalCount('', year, month, day);
+        ymsum_y = year;
+        ymsum_m = month;
+        ymdsum_y = year;
+        ymdsum_m = month;
+        ymdsum_d = day;
+
+
+        form.on('select(payType)', function(data){
+            getNormalCount(data.value);
+            getNormalCount(data.value, ymsum_y, ymsum_m);
+            getNormalCount(data.value, ymdsum_y, ymdsum_m, ymdsum_d);
+        });
     });
 </script>
 

@@ -18,6 +18,7 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
         <result property="cat"    column="cat"    />
         <result property="storeid"    column="storeid"    />
         <result property="purchasePrice"    column="purchase_price"    />
+        <result property="payType"    column="pay_type"    />
     </resultMap>
 
     <resultMap type="JSON2" id="countRecordResult">
@@ -26,7 +27,7 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
     </resultMap>
 
 	<sql id="selectXrgSellrecordVo">
-        select id, selltime, supplier, cat, supplier_address, item_number, store_number, size, sell_count, sell_price , set_price, storeid, purchase_price from xrg_sellrecord
+        select id, selltime, supplier, cat, supplier_address, item_number, store_number, size, sell_count, sell_price , set_price, storeid, purchase_price, pay_type from xrg_sellrecord
     </sql>
 
     <select id="selectXrgSellrecordList" parameterType="XrgSellrecord" resultMap="XrgSellrecordResult">
@@ -43,6 +44,7 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
              <if test="sellCount != null "> and sell_count = #{sellCount}</if>
              <if test="sellPrice != null and sellPrice != '' "> and sell_price = #{sellPrice}</if>
              <if test="setPrice != null and setPrice != '' "> and set_price = #{setPrice}</if>
+             <if test="payType != null and payType != '' "> and pay_type = #{payType}</if>
          </where>
         order by selltime desc
     </select>
@@ -67,6 +69,7 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 			<if test="cat != null  ">cat,</if>
 			<if test="storeid != null  ">storeid,</if>
 			<if test="purchasePrice != null  ">purchase_price,</if>
+			<if test="payType != null  ">pay_type,</if>
          </trim>
         <trim prefix="values (" suffix=")" suffixOverrides=",">
 			<if test="selltime != null  ">#{selltime},</if>
@@ -81,6 +84,7 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 			<if test="cat != null  ">#{cat},</if>
 			<if test="storeid != null  ">#{storeid},</if>
 			<if test="purchasePrice != null  ">#{purchasePrice},</if>
+			<if test="payType != null  ">#{payType},</if>
          </trim>
     </insert>
 	 
@@ -97,8 +101,9 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
             <if test="sellPrice != null  ">sell_price = #{sellPrice},</if>
             <if test="setPrice != null  ">set_price = #{setPrice},</if>
             <if test="cat != null  ">cat = #{cat},</if>
-            <if test="storeid != null  ">cat = #{storeid},</if>
-            <if test="purchasePrice != null  ">cat = #{purchasePrice},</if>
+            <if test="storeid != null  ">storeid = #{storeid},</if>
+            <if test="purchasePrice != null  ">purchase_price = #{purchasePrice},</if>
+            <if test="payType != null  ">pay_type = #{payType},</if>
         </trim>
         where id = #{id}
     </update>
@@ -122,6 +127,7 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
             <if test="year != null and year !=''"> and year(selltime) = #{year}</if>
             <if test="month != null and month !=''"> and month(selltime) = #{month}</if>
             <if test="day != null and day !=''"> and day(selltime) = #{day}</if>
+            <if test="payType != null and payType !=''"> and pay_type = #{payType}</if>
          </where>
          ) a
     </select>

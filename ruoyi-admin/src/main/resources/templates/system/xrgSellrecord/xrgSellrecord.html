@@ -82,6 +82,9 @@
     <script th:inline="javascript">
         var editFlag = [[${@permission.hasPermi('system:xrgSellrecord:edit')}]];
         var removeFlag = [[${@permission.hasPermi('system:xrgSellrecord:remove')}]];
+
+		var payTypeData = [[${@dict.getType('pay_type')}]];
+
         var prefix = ctx + "system/xrgSellrecord";
 
         $(function() {
@@ -156,6 +159,14 @@
 					field : 'purchasePrice',
 					title : '成本价',
 					sortable: true
+				} ,
+				{
+					field : 'payType',
+					title : '支付方式',
+					sortable: true,
+					formatter: function(value, row, index) {
+						return $.table.selectDictLabel(payTypeData, value);
+					}
 				} ,
 		       {
 		            title: '操作',
