@@ -10,7 +10,7 @@
     <modelVersion>4.0.0</modelVersion>
 	<packaging>jar</packaging>
     <artifactId>ruoyi-admin</artifactId>
-	
+
 	<description>
 	    web服务入口
 	</description>
@@ -106,7 +106,30 @@
                     <failOnMissingWebXml>false</failOnMissingWebXml>
                     <warName>${artifactId}</warName>
                 </configuration>   
-		   </plugin>   
+		   </plugin>
+            <!-- docker -->
+            <plugin>
+                <groupId>com.spotify</groupId>
+                <artifactId>docker-maven-plugin</artifactId>
+                <version>1.2.2</version>
+                <configuration>
+                    <!-- made of '[a-z0-9-_.]' -->
+                    <imageName>lq6767667/lilliput:1.0.0</imageName>
+                    <dockerDirectory>${project.basedir}</dockerDirectory>
+                    <!--指定远程 docker api地址-->
+                    <dockerHost>http://192.168.0.36:2375</dockerHost>
+                    <resources>
+                        <resource>
+                            <targetPath>/</targetPath>
+                            <directory>${project.build.directory}</directory>
+                            <include>${project.build.finalName}.jar</include>
+                        </resource>
+                    </resources>
+                    <!-- 以下两行是为了docker push到DockerHub使用的。 -->
+                    <serverId>docker-hub</serverId>
+                    <registryUrl>https://index.docker.io/v1/</registryUrl>
+                </configuration>
+            </plugin>
         </plugins>
         <finalName>${artifactId}</finalName>
     </build>
